@@ -212,7 +212,41 @@
     </svg>
     <span>Chat Admin</span>
   </a>
+<!-- Load Supabase Library -->
+<script src="https://jsdelivr.net"></script>
+<script>
+  // Konfigurasi Kunci Supabase Anda (Ganti dengan data yang sama seperti di file register)
+  const SUPABASE_URL = "https://supabase.com";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZyeXZ3a3Bnb3J2aWFud3htY2RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NTkwNDIsImV4cCI6MjA5OTUzNTA0Mn0.1vfdt3sDyJSBj9nHrbxlSlJT65RRt-udlE3tnGMASlk";
 
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Pastikan tag <form> pada index.html Anda memiliki id="loginForm"
+  // Jika belum ada, Anda bisa menambahkannya atau membiarkan script mencari tag form langsung
+  const loginForm = document.querySelector('form');
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    // Proses Verifikasi Login ke Supabase
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      alert("Login Gagal: " + error.message);
+    } else {
+      alert("Login Sukses! Selamat datang di STORE GMAIL CY TEAM.");
+      // Di sini Anda bisa mengarahkan user ke halaman dashboard utama member nantinya
+      // window.location.href = "dashboard-member.html"; 
+    }
+  });
+</script>
+  
 </body>
   </html>
   
