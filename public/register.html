@@ -192,7 +192,45 @@
     </svg>
     <span>Chat Admin</span>
   </a>
+<!-- Load Supabase Library -->
+<script src="https://jsdelivr.net"></script>
+<script>
+  // Konfigurasi Kunci Supabase Anda (Ganti tulisan di dalam tanda kutip sesuai data Anda)
+  const SUPABASE_URL = "MASUKKAN_PROJECT_URL_ANDA_DI_SINI";
+  const SUPABASE_ANON_KEY = "MASUKKAN_KODE_ANON_PUBLIC_ANDA_DI_SINI";
 
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Ambil Element Form Pendaftaran
+  const registerForm = document.getElementById('registerForm');
+
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value;
+
+    // Proses Pendaftaran Akun Baru ke Supabase Authentication
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          display_name: username
+        }
+      }
+    });
+
+    if (error) {
+      alert("Pendaftaran Gagal: " + error.message);
+    } else {
+      alert("Pendaftaran Berhasil! Silakan cek kotak masuk email Anda untuk verifikasi, lalu coba login.");
+      window.location.href = "index.html"; // Otomatis pindah ke halaman login
+    }
+  });
+  </script>
+  
 </body>
   </html>
   
