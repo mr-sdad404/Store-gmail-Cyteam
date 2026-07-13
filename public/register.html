@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STORE GMAIL CY TEAM - Daftar</title>
+  <style>
+    /* Pengaturan Reset Dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Pengaturan Background Utama Halaman */
+    body {
+      background-image: linear-gradient(rgba(10, 15, 35, 0.6), rgba(10, 15, 35, 0.7)), url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Kotak Panel Transparan (Glassmorphism) */
+    .register-container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    /* Pengaturan Header Teks */
+    .register-header h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #00ffff;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .register-header p {
+      font-size: 13px;
+      color: #cccccc;
+      margin-bottom: 25px;
+    }
+
+    /* Pengaturan Formulir Input */
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      color: #00ffff;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #00ffff;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Pengaturan Tombol Daftar */
+    .btn-register {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #00ffff, #0088cc);
+      border: none;
+      border-radius: 10px;
+      color: #0a0f23;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px #00ffff;
+    }
+
+    .login-text {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #cccccc;
+    }
+
+    .login-text a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Tombol WA Melayang */
+    .wa-floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(10, 15, 35, 0.8);
+      color: #00ffff;
+      border: 1px solid #00ffff;
+      padding: 12px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      transition: all 0.3s ease;
+    }
+
+    .wa-floating-btn:hover {
+      transform: translateY(-5px);
+      background: #00ffff;
+      color: #0a0f23;
+      box-shadow: 0 0 25px #00ffff;
+    }
+
+    .wa-floating-btn:hover svg {
+      fill: #0a0f23 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <div class="register-header">
+      <h2>STORE GMAIL CY TEAM</h2>
+      <p>Buat akun baru untuk mulai order</p>
+    </div>
+
+    <form id="registerForm">
+      <div class="input-group">
+        <label for="username">Nama Pengguna / Username</label>
+        <input type="text" id="username" placeholder="Buat username Anda" required>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Alamat Email</label>
+        <input type="email" id="email" placeholder="Masukkan email aktif" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Kata Sandi</label>
+        <input type="password" id="password" placeholder="Buat kata sandi minimal 6 karakter" required>
+      </div>
+
+      <button type="submit" class="btn-register">Daftar Sekarang</button>
+    </form>
+
+    <p class="login-text">Sudah punya akun? <a href="index.html">Masuk disini</a></p>
+  </div>
+
+  <!-- Tombol WhatsApp -->
+  <a href="https://wa.me" class="wa-floating-btn" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 32 32" style="width:24px; height:24px; fill:#00ffff;">
+      <path d="M16 2a14 14 0 0 0-12.1 21L2 29l6.3-1.6A14 14 0 1 0 16 2zm7.5 20c-.3.9-1.7 1.7-2.4 1.8-.7.1-1.5.2-4.5-.9-3.7-1.5-6-5.3-6.2-5.5-.2-.2-1.7-2.3-1.7-4.4 0-2.1 1.1-3.1 1.5-3.5.3-.3.8-.5 1.2-.5.1 0 .3 0 .4.1.4 0 .6.1.8.6.3.6.9 2.2 1 2.4.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.6.7c-.2.2-.4.4-.2.8.3.5 1.3 2.1 2.8 3.5 1.9 1.7 3.5 2.2 4 2.4.5.2.8.2 1.1-.2.3-.4 1.3-1.5 1.6-2 .3-.5.7-.4 1.2-.2.5.2 3.1 1.5 3.6 1.8.5.2.9.4 1 .6.2.3.2 1.7-.2 2.6z"/>
+    </svg>
+    <span>Chat Admin</span>
+  </a>
+
+</body>
+  </html>
+  
