@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FreelanceCuan</title>
+    <!-- Memanggil library Supabase CDN -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        /* Gaya Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #f4f7fe;
+        }
+
+        /* Mengintegrasikan background custom Anda melalui iframe agar sama persis dengan background.html */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            border: none;
+            pointer-events: none;
+        }
+
+        /* Navigasi Atas */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-email {
+            font-size: 14px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc2626;
+        }
+
+        /* Konten Utama Dashboard */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* Kartu Ringkasan Saldo / Setoran */
+        .balance-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .balance-info h3 {
+            font-size: 14px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .btn-deposit {
+            background: linear-gradient(135deg, #4f46e5, #2563eb);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: 0.2s;
+        }
+
+        .btn-deposit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Grid Menu Fitur Utama */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            background: #eff6ff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+            color: #2563eb;
+            font-size: 24px;
+        }
+
+        .feature-card h4 {
+            font-size: 18px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 640px) {
+            header { padding: 15px 20px; }
+            .balance-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .btn-deposit { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Memanggil background.html secara transparan sebagai latar belakang utama -->
+    <iframe src="background.html" class="bg-container"></iframe>
+
+    <!-- Bagian Navigasi Dashboard -->
+    <header>
+        <div class="logo">
+            <!-- Icon Unduh/Setoran serupa di web Anda -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            FreelanceCuan
+        </div>
+        <div class="user-profile">
+            <span class="user-email" id="userEmail">Memuat akun...</span>
+            <button class="btn-logout" onclick="handleLogout()">Keluar</button>
+        </div>
+    </header>
+
+    <!-- Konten Dashboard -->
+    <main>
+        <!-- Kartu Utama: Info Saldo & Tombol Setoran -->
+        <div class="balance-card">
+            <div class="balance-info">
+                <h3>Total Saldo Setoran</h3>
+                <div class="balance-amount" id="userBalance">Rp 0</div>
+            </div>
+            <button class="btn-deposit">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Tambah Setoran
+            </button>
+        </div>
+
+        <!-- Grid Menu Layanan / Kerja -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-wrapper">💼</div>
+                <h4>Ambil Projek</h4>
+                <p>Cari pekerjaan lepasan yang tersedia dan mulai kumpulkan cuan harian Anda.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">📊</div>
+                <h4>Riwayat Transaksi</h4>
+                <p>Pantau catatan riwayat transaksi setoran dan penarikan dana Anda secara real-time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">⚙️</div>
+                <h4>Pengaturan Akun</h4>
+                <p>Kelola data profil, ubah kata sandi, dan amankan akun Supabase Anda dengan mudah.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Integrasi Keamanan & Session Supabase -->
+    <script>
+        // 1. INisialisasi URL dan API Key Supabase Anda
+        const SUPABASE_URL = "https://XYZ_GANTI_DENGAN_URL_SUPABASE_MU.supabase.co";
+        const SUPABASE_KEY = "GANTI_DENGAN_ANON_KEY_SUPABASE_MU";
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // 2. Proteksi Halaman: Cek apakah user sudah masuk atau belum
+        async function proteksiHalaman() {
+            const { data: { session }, error } = await supabase.auth.getSession();
+
+            // Jika tidak ada sesi aktif (belum login), kembalikan ke halaman login (index.html)
+            if (!session || error) {
+                window.location.href = "index.html";
+            } else {
+                // Tampilkan email pengguna yang sedang aktif di header
+                document.getElementById('userEmail').innerText = session.user.email;
+                
+                // Opsional: Jalankan fungsi mengambil saldo dari tabel database jika ada
+                // muatDataSaldo(session.user.id);
+            }
+        }
+
+        // 3. Fungsi Log Out Akun
+        async function handleLogout() {
+            const { error } = await supabase.auth.signOut();
+            if (!error) {
+                alert("Anda telah keluar akun.");
+                window.location.href = "index.html";
+            } else {
+                alert("Gagal keluar: " + error.message);
+            }
+        }
+
+        // Jalankan pengecekan keamanan saat halaman dashboard dimuat
+        window.onload = proteksiHalaman;
+    </script>
+</body>
+  </html>
+  
