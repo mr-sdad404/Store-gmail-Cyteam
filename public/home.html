@@ -302,6 +302,32 @@ tr:last-child td {
 
         <!-- Grid Menu Layanan / Kerja -->
         <div class="features-grid">
+            <!-- Bagian Tabel Riwayat Transaksi -->
+<div class="history-section">
+    <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Riwayat Transaksi Terbaru
+    </h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal & Waktu</th>
+                    <th>ID Transaksi</th>
+                    <th>Jenis</th>
+                    <th>Nominal</th>
+                </tr>
+            </thead>
+            <tbody id="transactionHistory">
+                <!-- Data dari Supabase akan masuk ke sini via JavaScript -->
+                <tr>
+                    <td colspan="4" class="no-data">Memuat riwayat transaksi...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+            
             <div class="feature-card">
                 <div class="icon-wrapper">💼</div>
                 <h4>Ambil Projek</h4>
