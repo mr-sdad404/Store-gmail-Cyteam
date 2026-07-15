@@ -24,9 +24,10 @@
             display: flex;
             min-height: 100vh;
             position: relative;
+            width: 100%;
         }
 
-        /* ================= KANVAS SIDEBAR BARU ================= */
+        /* ================= KANVAS SIDEBAR ================= */
         .sidebar {
             width: 260px;
             background: rgba(255, 255, 255, 0.04);
@@ -92,6 +93,7 @@
             padding: 30px 5%;
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         /* Navigasi Atas */
@@ -106,6 +108,7 @@
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 30px;
+            width: 100%;
         }
 
         header .logo {
@@ -146,6 +149,7 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 100%;
         }
 
         .balance-info h3 {
@@ -188,6 +192,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
+            width: 100%;
         }
 
         .feature-card {
@@ -241,6 +246,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             margin-top: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
         }
 
         .history-section h3 {
@@ -338,6 +344,3 @@
             }
             .sidebar {
                 width: 100%;
-                height: auto;
-                position: relative;
-                border-right: none;
