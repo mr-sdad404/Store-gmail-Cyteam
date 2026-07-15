@@ -1,0 +1,354 @@
+/* ===== CY TEAM FUTURISTIC THEME ===== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:
+    linear-gradient(rgba(5,10,30,.75),rgba(5,10,30,.75)),
+    url("../background.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:#fff;
+    min-height:100vh;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00ffff;
+    border-radius:20px;
+}
+
+/* Sidebar */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-320px;
+    width:300px;
+    height:100%;
+    background:rgba(8,12,35,.95);
+    backdrop-filter:blur(20px);
+    transition:.35s;
+    padding:20px;
+    overflow-y:auto;
+    z-index:1002;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    padding:15px;
+    margin-top:12px;
+    border-radius:15px;
+    background:rgba(255,255,255,.05);
+    transition:.3s;
+}
+
+.sidebar a:hover{
+
+    background:linear-gradient(135deg,#00ffff,#6a00ff);
+    transform:translateX(8px);
+
+}
+
+/* Overlay */
+
+.overlay{
+
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+display:none;
+z-index:999;
+
+}
+
+.overlay.active{
+
+display:block;
+
+}
+
+/* Button */
+
+.menu-btn{
+
+position:fixed;
+top:20px;
+left:20px;
+width:55px;
+height:55px;
+border:none;
+border-radius:16px;
+cursor:pointer;
+font-size:24px;
+font-weight:bold;
+background:linear-gradient(135deg,#00ffff,#6a00ff);
+color:white;
+z-index:1003;
+
+box-shadow:0 0 20px cyan;
+
+}
+
+/* Profile */
+
+.profile{
+
+text-align:center;
+margin-bottom:20px;
+
+}
+
+.profile img{
+
+width:95px;
+height:95px;
+border-radius:50%;
+border:3px solid cyan;
+
+box-shadow:0 0 20px cyan;
+
+}
+
+.profile h2{
+
+margin-top:10px;
+color:#00ffff;
+
+}
+
+/* Balance */
+
+.balance{
+
+padding:18px;
+border-radius:20px;
+margin-bottom:20px;
+background:linear-gradient(135deg,#00ffff,#6a00ff,#0099ff);
+background-size:300% 300%;
+animation:holo 6s infinite;
+
+}
+
+@keyframes holo{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
+}
+
+/* Container */
+
+.container{
+
+max-width:1200px;
+margin:auto;
+padding:90px 20px 30px;
+
+}
+
+/* Hero */
+
+.hero{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+.hero h1{
+
+font-size:40px;
+color:#00ffff;
+text-shadow:0 0 20px cyan;
+
+}
+
+/* Card */
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+
+}
+
+.glass{
+
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(18px);
+border-radius:22px;
+padding:22px;
+border:1px solid rgba(255,255,255,.15);
+transition:.35s;
+
+}
+
+.glass:hover{
+
+transform:translateY(-8px);
+box-shadow:0 0 25px cyan;
+
+}
+
+.big{
+
+font-size:30px;
+font-weight:bold;
+color:#00ffff;
+
+}
+
+/* Clock */
+
+.clock{
+
+margin-top:30px;
+
+}
+
+/* Footer */
+
+.footer{
+
+margin-top:40px;
+padding:25px;
+text-align:center;
+opacity:.7;
+
+}
+
+/* WA */
+
+.wa-floating-btn{
+
+position:fixed;
+right:30px;
+bottom:30px;
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px 22px;
+border-radius:50px;
+text-decoration:none;
+background:rgba(8,12,35,.85);
+color:#00ffff;
+border:1px solid cyan;
+backdrop-filter:blur(15px);
+transition:.3s;
+font-weight:bold;
+z-index:9999;
+
+}
+
+.wa-floating-btn:hover{
+
+background:#00ffff;
+color:#000;
+box-shadow:0 0 25px cyan;
+transform:translateY(-5px);
+
+}
+
+/* Neon Button */
+
+.btn{
+
+display:inline-block;
+padding:14px 28px;
+border-radius:15px;
+text-decoration:none;
+color:white;
+font-weight:bold;
+background:linear-gradient(135deg,#00ffff,#6a00ff);
+transition:.3s;
+
+}
+
+.btn:hover{
+
+transform:scale(1.05);
+box-shadow:0 0 25px cyan;
+
+}
+
+/* Input */
+
+input,select,textarea{
+
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+outline:none;
+border-radius:15px;
+background:rgba(255,255,255,.08);
+color:white;
+
+}
+
+input::placeholder{
+
+color:#bbb;
+
+}
+
+/* Table */
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+th{
+
+background:#00ffff;
+color:black;
+
+}
+
+td,th{
+
+padding:14px;
+border:1px solid rgba(255,255,255,.15);
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:28px;
+
+}
+
+.container{
+
+padding-top:85px;
+
+}
+
+}

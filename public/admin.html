@@ -1,430 +1,104 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CY TEAM ADMIN PANEL</title>
 
-<style>
+<link rel="stylesheet" href="css/style.css">
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
-
-body{
-
-background:
-linear-gradient(
-rgba(0,0,0,.65),
-rgba(0,0,0,.65)
-),
-url('background.jpg');
-
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-background-attachment:fixed;
-
-color:white;
-min-height:100vh;
-
-}
-
-.navbar{
-
-position:sticky;
-top:0;
-z-index:999;
-
-display:flex;
-justify-content:center;
-align-items:center;
-gap:15px;
-flex-wrap:wrap;
-
-padding:15px;
-
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(15px);
--webkit-backdrop-filter:blur(15px);
-
-border-bottom:1px solid rgba(0,255,255,.3);
-
-}
-
-.navbar a{
-
-text-decoration:none;
-color:#00ffff;
-
-padding:10px 18px;
-
-border:1px solid rgba(0,255,255,.4);
-
-border-radius:12px;
-
-transition:.3s;
-
-font-weight:bold;
-
-background:rgba(255,255,255,.05);
-
-}
-
-.navbar a:hover{
-
-background:#00ffff;
-color:black;
-
-box-shadow:
-0 0 10px #00ffff,
-0 0 20px #00ffff,
-0 0 40px #00ffff;
-
-}
-
-.container{
-
-max-width:1000px;
-margin:auto;
-padding:25px;
-
-}
-
-.panel{
-
-background:rgba(15,23,42,.55);
-
-backdrop-filter:blur(14px);
--webkit-backdrop-filter:blur(14px);
-
-border:1px solid rgba(0,255,255,.25);
-
-border-radius:25px;
-
-padding:25px;
-
-margin-top:30px;
-
-box-shadow:
-0 0 20px rgba(0,255,255,.15),
-0 0 50px rgba(0,255,255,.08);
-
-}
-
-.title{
-
-text-align:center;
-
-font-size:30px;
-font-weight:bold;
-
-color:#00ffff;
-
-text-shadow:
-0 0 10px #00ffff,
-0 0 20px #00ffff;
-
-margin-bottom:10px;
-
-}
-
-.subtitle{
-
-text-align:center;
-opacity:.85;
-margin-bottom:25px;
-
-}
-
-input{
-
-width:100%;
-
-padding:15px;
-
-margin-top:12px;
-
-border:none;
-
-border-radius:12px;
-
-background:rgba(255,255,255,.08);
-
-backdrop-filter:blur(8px);
-
-color:white;
-
-outline:none;
-
-font-size:15px;
-
-}
-
-input::placeholder{
-
-color:#cfcfcf;
-
-}
-
-button{
-
-width:100%;
-
-padding:15px;
-
-margin-top:15px;
-
-border:none;
-
-border-radius:12px;
-
-background:#00ffff;
-
-color:black;
-
-font-weight:bold;
-
-font-size:16px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-button:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-0 0 15px #00ffff,
-0 0 30px #00ffff;
-
-}
-
-.stats{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
-
-gap:15px;
-
-margin-bottom:20px;
-
-}
-
-.stat-card{
-
-background:rgba(255,255,255,.06);
-
-backdrop-filter:blur(10px);
-
-padding:20px;
-
-border-radius:18px;
-
-border:1px solid rgba(0,255,255,.2);
-
-text-align:center;
-
-}
-
-.stat-title{
-
-opacity:.8;
-margin-bottom:8px;
-
-}
-
-.stat-number{
-
-font-size:30px;
-font-weight:bold;
-
-color:#00ffff;
-
-text-shadow:
-0 0 10px #00ffff;
-
-}
-
-.search{
-
-margin-bottom:20px;
-
-}
-
-.card{
-
-background:rgba(255,255,255,.06);
-
-backdrop-filter:blur(10px);
-
-border:1px solid rgba(0,255,255,.15);
-
-padding:15px;
-
-border-radius:15px;
-
-margin-top:12px;
-
-transition:.3s;
-
-}
-
-.card:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-0 0 15px rgba(0,255,255,.3);
-
-}
-
-.gmail{
-
-font-size:18px;
-font-weight:bold;
-
-color:#00ffff;
-
-}
-
-.pass{
-
-margin-top:8px;
-
-color:#ffd166;
-
-}
-
-.time{
-
-margin-top:8px;
-
-opacity:.75;
-
-font-size:13px;
-
-}
-
-.footer{
-
-text-align:center;
-
-padding:25px;
-
-opacity:.7;
-
-font-size:13px;
-
-}
-
-#dashboard{
-
-display:none;
-
-}
-
-.loading{
-
-text-align:center;
-margin-top:15px;
-
-}
-
-</style>
 </head>
+
 <body>
 
-<nav class="navbar">
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-<a href="/">🏠 Home</a>
+<div id="sidebar" class="sidebar">
 
-<a href="/admin.html">👤 Admin</a>
+<div class="profile">
 
-<a href="/dashboard.html">📊 Dashboard</a>
+<img src="profile.jpg" alt="Profile">
 
-<a href="/cekgmail.html">📧 Cek Gmail</a>
+<h2>CY TEAM</h2>
 
-</nav>
+<p>Admin Dashboard</p>
+
+</div>
+
+<div class="balance">
+
+<div>Status Server</div>
+
+<h2>🟢 ONLINE</h2>
+
+</div>
+
+<a href="index.html">🏠 Home</a>
+<a href="admin.html">👤 Admin</a>
+<a href="dashboard.html">📊 Dashboard</a>
+<a href="cekgmail.html">📧 Cek Gmail</a>
+<a href="saldo.html">💰 Saldo</a>
+<a href="riwayat.html">📜 Riwayat</a>
+<a href="setting.html">⚙️ Pengaturan</a>
+<a href="logout.html">🚪 Logout</a>
+
+</div>
+
+<div id="overlay" class="overlay"></div>
 
 <div class="container">
 
-<div class="panel" id="loginBox">
+<div class="hero">
 
-<div class="title">
-🤖 CY TEAM ADMIN PANEL
-</div>
+<h1>🤖 CY TEAM ADMIN PANEL</h1>
 
-<div class="subtitle">
-Login untuk melihat seluruh data setoran Gmail
-</div>
-
-<input
-type="text"
-id="user"
-placeholder="Username Admin">
-
-<input
-type="password"
-id="pass"
-placeholder="Password Admin">
-
-<button onclick="login()">
-🔐 LOGIN ADMIN
-</button>
-
-<div id="status" class="loading"></div>
+<p>Kelola seluruh data Gmail dengan mudah.</p>
 
 </div>
 
-<div id="dashboard">
+<div class="grid">
 
-<div class="panel">
+<div class="glass">
 
-<div class="title">
-📊 DASHBOARD ADMIN
-</div>
+<div>Total Gmail</div>
 
-<div class="stats">
-
-<div class="stat-card">
-
-<div class="stat-title">
-Total Setoran
-</div>
-
-<div
-class="stat-number"
-id="total">
-0
-</div>
+<div class="big" id="total">0</div>
 
 </div>
 
-<div class="stat-card">
+<div class="glass">
 
-<div class="stat-title">
-Status Server
+<div>Server</div>
+
+<div class="big">ONLINE</div>
+
 </div>
 
-<div class="stat-number">
-ONLINE
+<div class="glass">
+
+<div>Status</div>
+
+<div class="big">ADMIN</div>
+
 </div>
+
+<div class="glass">
+
+<div>Waktu</div>
+
+<div id="clock" class="big"></div>
 
 </div>
 
 </div>
 
-<div class="search">
+<div class="glass" style="margin-top:25px;">
+
+<h2 style="margin-bottom:15px;color:#00ffff;">
+📧 Data Gmail
+</h2>
 
 <input
 type="text"
@@ -432,95 +106,68 @@ id="search"
 placeholder="Cari Gmail..."
 onkeyup="filterData()">
 
-</div>
-
-<div id="hasil"></div>
-
-</div>
+<div id="hasil" style="margin-top:20px;"></div>
 
 </div>
 
 <div class="footer">
-CY TEAM ADMIN PANEL © 2026
+
+CY TEAM ADMIN PANEL ©
+<span id="footerYear"></span>
+
 </div>
 
 </div>
+
+<!-- JavaScript Bagian 2 dimulai dari bawah sini -->
 
 <script>
+let allData = [
 
-let allData = [];
+{
+gmail:"member1@gmail.com",
+password:"12345678",
+waktu:"15 Juli 2026 20:00"
+},
 
-async function login(){
+{
+gmail:"member2@gmail.com",
+password:"12345678",
+waktu:"15 Juli 2026 20:05"
+},
 
-const user =
-document.getElementById("user").value;
-
-const pass =
-document.getElementById("pass").value;
-
-document.getElementById("status").innerHTML =
-"Memuat data...";
-
-try{
-
-const res =
-await fetch(`/api/admin?user=${user}&pass=${pass}`);
-
-const data =
-await res.json();
-
-if(!data.status){
-
-alert("Username atau Password Salah");
-
-document.getElementById("status").innerHTML = "";
-
-return;
-
+{
+gmail:"member3@gmail.com",
+password:"12345678",
+waktu:"15 Juli 2026 20:10"
 }
 
-allData = data.result;
+];
 
-document.getElementById("loginBox").style.display =
-"none";
-
-document.getElementById("dashboard").style.display =
-"block";
-
-document.getElementById("total").innerText =
-allData.length;
-
-renderData(allData);
-
-}catch(err){
-
-alert("Terjadi kesalahan server");
-
-}
-
-}
-
+// Menampilkan Data
 function renderData(data){
 
-let html = "";
+let html="";
 
-data.forEach(v=>{
+document.getElementById("total").innerHTML=data.length;
 
-html += `
+data.forEach(item=>{
 
-<div class="card">
+html+=`
 
-<div class="gmail">
-📧 ${v.gmail}
-</div>
+<div class="glass" style="margin-top:15px;">
 
-<div class="pass">
-🔑 ${v.password}
-</div>
+<h3 style="color:#00ffff;">
+📧 ${item.gmail}
+</h3>
 
-<div class="time">
-🕒 ${v.waktu}
-</div>
+<p style="margin-top:10px;">
+🔑 ${item.password}
+</p>
+
+<p style="opacity:.7;margin-top:8px;">
+🕒 ${item.waktu}
+</p>
 
 </div>
 
@@ -528,28 +175,30 @@ html += `
 
 });
 
-document.getElementById("hasil").innerHTML =
-html;
+document.getElementById("hasil").innerHTML=html;
 
 }
 
+renderData(allData);
+
+// Cari Gmail
 function filterData(){
 
-const keyword =
-document.getElementById("search")
-.value
-.toLowerCase();
+let keyword=document.getElementById("search").value.toLowerCase();
 
-const filtered =
-allData.filter(x =>
+let hasil=allData.filter(x=>
+
 x.gmail.toLowerCase().includes(keyword)
+
 );
 
-renderData(filtered);
+renderData(hasil);
 
 }
 
 </script>
+
+<script src="js/sidebar.js"></script>
 
 </body>
 </html>
