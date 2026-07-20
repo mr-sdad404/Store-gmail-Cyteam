@@ -263,7 +263,7 @@ placeholder="Password Admin">
 <div id="dashboard">
 <div class="panel">
 <div class="title">
-📊 DASHBOARD UTAMA
+📡 PANEL CONTROL ADMIN
 </div>
 <div class="subtitle" style="margin-bottom: 20px;">
 Ringkasan Data Aktivitas Validasi Sistem
@@ -290,7 +290,7 @@ Ringkasan Data Aktivitas Validasi Sistem
 <!-- Spanduk Status Notifikasi Internal -->
 <div class="card" style="border-left: 5px solid #00ffff; margin-bottom: 25px;">
 <div class="system-log">
-📢 <strong>Keterangan Sistem:</strong> <span class="log-status">Berhasil Terkirim</span>. Ringkasan log enkripsi aktivitas operasional harian telah diperbarui pada sistem penyimpanan Admin.
+📢 <strong>Keterangan Sistem:</strong> <span class="log-status">Berhasil Terkirim</span>. Semua Data log enkripsi aktivitas operasional telah di simpan pada sistem penyimpanan Admin.
 </div>
 </div>
 
@@ -341,7 +341,7 @@ function login(){
 
         // Mengisi visualisasi angka statistik global
         document.getElementById("totalSetoran").innerText = allData.length + " Berkas";
-        document.getElementById("totalDicek").innerText = (allData.length * 12) + " Antrean";
+        document.getElementById("totalDicek").innerText = (allData.length * 12) + " Proses";
 
         renderData(allData);
         document.getElementById("status").innerHTML = "";
