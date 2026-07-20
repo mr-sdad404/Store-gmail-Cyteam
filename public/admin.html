@@ -27,48 +27,73 @@ background-repeat:no-repeat;
 background-attachment:fixed;
 color:white;
 min-height:100vh;
+display: flex;
+flex-direction: column;
 }
 
-.navbar{
-position:sticky;
-top:0;
-z-index:999;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:15px;
-flex-wrap:wrap;
-padding:15px;
-background:rgba(0,0,0,.35);
-backdrop-filter:blur(15px);
--webkit-backdrop-filter:blur(15px);
-border-bottom:1px solid rgba(0,255,255,.3);
+/* --- STRUKTUR SIDEBAR BARU --- */
+.sidebar {
+position: fixed;
+top: 0;
+left: 0;
+height: 100vh;
+width: 240px;
+background: rgba(15, 23, 42, 0.85);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+border-right: 1px solid rgba(0,255,255,.3);
+padding: 25px 15px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+z-index: 1000;
+transition: 0.3s;
 }
 
-.navbar a{
-text-decoration:none;
-color:#00ffff;
-padding:10px 18px;
-border:1px solid rgba(0,255,255,.4);
-border-radius:12px;
-transition:.3s;
-font-weight:bold;
-background:rgba(255,255,255,.05);
+.sidebar-brand {
+font-size: 20px;
+font-weight: bold;
+color: #00ffff;
+text-shadow: 0 0 10px #00ffff;
+text-align: center;
+margin-bottom: 25px;
+border-bottom: 1px solid rgba(0,255,255,.2);
+padding-bottom: 15px;
 }
 
-.navbar a:hover{
-background:#00ffff;
-color:black;
-box-shadow:
+.sidebar a {
+text-decoration: none;
+color: #00ffff;
+padding: 12px 18px;
+border: 1px solid rgba(0,255,255,.2);
+border-radius: 12px;
+transition: .3s;
+font-weight: bold;
+background: rgba(255,255,255,.03);
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.sidebar a:hover, .sidebar a.active {
+background: #00ffff;
+color: black;
+box-shadow: 
 0 0 10px #00ffff,
-0 0 20px #00ffff,
-0 0 40px #00ffff;
+0 0 20px #00ffff;
+}
+
+/* Area Konten Utama di samping Sidebar */
+.main-content {
+margin-left: 240px;
+flex: 1;
+width: calc(100% - 240px);
 }
 
 .container{
-max-width:1000px;
-margin:auto;
-padding:25px;
+max-width: 1000px;
+margin: auto;
+padding: 25px;
 }
 
 .panel{
@@ -78,7 +103,7 @@ backdrop-filter:blur(14px);
 border:1px solid rgba(0,255,255,.25);
 border-radius:25px;
 padding:25px;
-margin-top:30px;
+margin-top:20px;
 box-shadow:
 0 0 20px rgba(0,255,255,.15),
 0 0 50px rgba(0,255,255,.08);
@@ -141,8 +166,7 @@ box-shadow:
 
 .stats{
 display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 gap:15px;
 margin-bottom:20px;
 }
@@ -162,12 +186,45 @@ margin-bottom:8px;
 font-size:14px;
 }
 
-.stat-number{
-font-size:24px;
-font-weight:bold;
-color:#00ffff;
-text-shadow:
-0 0 10px #00ffff;
+/* --- EFEK GLOW / GLOWING ANIMASI BARU --- */
+.glow-text {
+font-size: 28px;
+font-weight: bold;
+color: #00ffff;
+text-shadow: 
+0 0 5px #00ffff,
+0 0 15px #00ffff,
+0 0 25px #00ffff;
+animation: pulseGlow 2s infinite alternate;
+}
+
+.glow-active {
+font-size: 28px;
+font-weight: bold;
+color: #2da44e;
+text-shadow: 
+0 0 5px #2da44e,
+0 0 15px #2da44e,
+0 0 25px #2da44e;
+animation: pulseGlowGreen 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+0% {
+text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+}
+100% {
+text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff, 0 0 35px #00ffff;
+}
+}
+
+@keyframes pulseGlowGreen {
+0% {
+text-shadow: 0 0 5px #2da44e, 0 0 10px #2da44e, 0 0 15px #2da44e;
+}
+100% {
+text-shadow: 0 0 10px #2da44e, 0 0 25px #2da44e, 0 0 35px #2da44e;
+}
 }
 
 .search{
@@ -212,6 +269,7 @@ text-align:center;
 padding:25px;
 opacity:.7;
 font-size:13px;
+margin-top: auto;
 }
 
 #dashboard{
@@ -222,17 +280,46 @@ display:none;
 text-align:center;
 margin-top:15px;
 }
+
+/* PENYESUAIAN MOBILE UNTUK LAYAR ANDROID */
+@media (max-width: 768px) {
+.sidebar {
+width: 60px;
+padding: 25px 5px;
+}
+.sidebar-brand {
+font-size: 11px;
+padding-bottom: 10px;
+word-break: break-all;
+}
+.sidebar a {
+padding: 10px;
+justify-content: center;
+font-size: 0; /* Menyembunyikan teks menu, hanya menyisakan emoji di HP */
+}
+.sidebar a::before {
+font-size: 18px;
+}
+.main-content {
+margin-left: 60px;
+width: calc(100% - 60px);
+}
+}
 </style>
 </head>
 <body>
 
-<nav class="navbar">
+<!-- Sidebar Menu (Menggantikan Navbar Atas) -->
+<nav class="sidebar">
+<div class="sidebar-brand">CY PANEL</div>
 <a href="/">🏠 Home</a>
-<a href="/admin.html">👤 Admin</a>
+<a href="/admin.html" class="active">👤 Admin</a>
 <a href="/dashboard.html">📊 Dashboard</a>
 <a href="/cekgmail.html">📧 Cek Gmail</a>
 </nav>
 
+<!-- Wadah Utama Konten -->
+<div class="main-content">
 <div class="container">
 
 <div class="panel" id="loginBox">
@@ -240,7 +327,7 @@ margin-top:15px;
 🤖 CY TEAM ADMIN PANEL
 </div>
 <div class="subtitle">
-Login untuk melihat ringkasan status operasional
+Login simulator untuk melihat ringkasan status operasional
 </div>
 
 <input
@@ -263,34 +350,37 @@ placeholder="Password Admin">
 <div id="dashboard">
 <div class="panel">
 <div class="title">
-📡 PANEL CONTROL ADMIN
+📊 DASHBOARD UTAMA
 </div>
 <div class="subtitle" style="margin-bottom: 20px;">
-Ringkasan Data Aktivitas Validasi Sistem
+Ringkasan Data Aktivitas Validasi Sistem (Simulasi lokal)
 </div>
 
 <!-- Grid Kartu Statistik -->
 <div class="stats">
 <div class="stat-card">
 <div class="stat-title">Total Setoran</div>
-<div class="stat-number" id="totalSetoran">8755</div>
+<!-- Nilai Kustom Anda Dengan Efek Neon Glow -->
+<div class="glow-text" id="totalSetoran">8755</div>
 </div>
 
 <div class="stat-card">
 <div class="stat-title">Total Akun Dicek</div>
-<div class="stat-number" id="totalDicek">1367</div>
+<!-- Nilai Kustom Anda Dengan Efek Neon Glow -->
+<div class="glow-text" id="totalDicek">1367</div>
 </div>
 
 <div class="stat-card">
 <div class="stat-title">Status Sinkronisasi</div>
-<div class="stat-number" style="color: #2da44e;">AKTIF</div>
+<!-- Status AKTIF Dengan Efek Neon Glow Hijau -->
+<div class="glow-active">AKTIF</div>
 </div>
 </div>
 
 <!-- Spanduk Status Notifikasi Internal -->
 <div class="card" style="border-left: 5px solid #00ffff; margin-bottom: 25px;">
 <div class="system-log">
-📢 <strong>Keterangan Sistem:</strong> <span class="log-status">Berhasil Terkirim</span>. Semua Data log enkripsi aktivitas operasional telah di simpan pada sistem penyimpanan Admin.
+📢 <strong>Keterangan Sistem:</strong> <span class="log-status">Berhasil Terkirim</span>. Ringkasan log enkripsi aktivitas operasional harian telah diperbarui pada sistem penyimpanan Admin.
 </div>
 </div>
 
@@ -311,69 +401,67 @@ CY TEAM ADMIN PANEL © 2026
 </div>
 
 </div>
+</div>
 
 <script>
 let allData = [];
 
 function login(){
-    const user = document.getElementById("user").value;
-    const pass = document.getElementById("pass").value;
+const user = document.getElementById("user").value;
+const pass = document.getElementById("pass").value;
 
-    document.getElementById("status").innerHTML = "Memverifikasi sesi admin...";
+document.getElementById("status").innerHTML = "Memverifikasi sesi admin...";
 
-    // Akses login lokal
-    const usernameSistem = "admin";
-    const passwordSistem = "admin123";
+const usernameSistem = "admin";
+const passwordSistem = "admin123";
 
-    if (user === usernameSistem && pass === passwordSistem) {
-        
-        // Mempersiapkan log data operasional
-        allData = [
-            { waktu: "16:00 WIB" },
-            { waktu: "16:02 WIB" },
-            { waktu: "16:05 WIB" },
-            { waktu: "16:10 WIB" }
-        ];
+if (user === usernameSistem && pass === passwordSistem) {
 
-        // Manajemen tampilan antarmuka
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
+allData = [
+{ waktu: "16:00 WIB" },
+{ waktu: "16:02 WIB" },
+{ waktu: "16:05 WIB" },
+{ waktu: "16:10 WIB" }
+];
 
-        // Mengisi visualisasi angka statistik global
-       // document.getElementById("totalSetoran").innerText = allData.length + " Berkas";
-       // document.getElementById("totalDicek").innerText = (allData.length * 12) + " Proses";
+document.getElementById("loginBox").style.display = "none";
+document.getElementById("dashboard").style.display = "block";
 
-        renderData(allData);
-        document.getElementById("status").innerHTML = "";
-    } else {
-        alert("Username atau Password Salah!");
-        document.getElementById("status").innerHTML = "";
-    }
+// PERBAIKAN: Baris script penimpa teks di bawah ini dinonaktifkan agar nilai HTML manual Anda tidak berubah.
+// document.getElementById("totalSetoran").innerText = allData.length + " Berkas";
+// document.getElementById("totalDicek").innerText = (allData.length * 12) + " Antrean";
+
+renderData(allData);
+document.getElementById("status").innerHTML = "";
+} else {
+alert("Username atau Password Salah! (Gunakan user: admin / pass: admin123)");
+document.getElementById("status").innerHTML = "";
+}
 }
 
 function renderData(data){
-    let html = "";
-    data.forEach((v, index)=>{
-        html += `
-        <div class="card">
-            <div class="gmail">
-                📦 ID Log Operasional: SYS-LOG-${1000 + index}
-            </div>
-            <div class="time">
-                🕒 Waktu Sinkronisasi: ${v.waktu}
-            </div>
-        </div>
-        `;
-    });
-    document.getElementById("hasil").innerHTML = html || "<p style='text-align:center; opacity:0.5;'>Tidak ada log aktivitas.</p>";
+let html = "";
+data.forEach((v, index)=>{
+html += `
+<div class="card">
+<div class="gmail">
+📦 ID Log Operasional: SYS-LOG-${1000 + index}
+</div>
+<div class="time">
+🕒 Waktu Sinkronisasi: ${v.waktu}
+</div>
+</div>
+`;
+});
+document.getElementById("hasil").innerHTML = html || "<p style='text-align:center; opacity:0.5;'>Tidak ada log aktivitas.</p>";
 }
 
 function filterData(){
-    const keyword = document.getElementById("search").value.toLowerCase();
-    const filtered = allData.filter((x, index) => 
-        `SYS-LOG-${1000 + index}`.toLowerCase().includes(keyword)
-    );
-    renderData(filtered);
+const keyword = document.getElementById("search").value.toLowerCase();
+const filtered = allData.filter((x, index) => 
+`SYS-LOG-${1000 + index}`.toLowerCase().includes(keyword)
+);
+renderData(filtered);
 }
 </script>
 
