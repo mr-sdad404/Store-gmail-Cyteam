@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CEK GMAIL - CY TEAM</title>
+<title>MASSAL CEK GMAIL - CY TEAM</title>
 
 <style>
 
@@ -61,7 +61,7 @@ box-shadow:
 }
 
 .container{
-max-width:700px;
+max-width:800px;
 margin:auto;
 padding:25px;
 }
@@ -95,8 +95,10 @@ opacity:.8;
 margin-bottom:25px;
 }
 
-input{
+/* Mengubah ke Textarea untuk Multi-Line Input */
+textarea {
 width:100%;
+height: 180px;
 padding:15px;
 border:none;
 border-radius:12px;
@@ -105,14 +107,16 @@ color:white;
 outline:none;
 font-size:15px;
 border: 1px solid rgba(255,255,255,.1);
+resize: vertical;
+font-family: monospace;
 }
 
-input:focus {
+textarea:focus {
 border-color: #00ffff;
 box-shadow: 0 0 10px rgba(0,255,255,.3);
 }
 
-input::placeholder{
+textarea::placeholder{
 color:#ccc;
 }
 
@@ -138,37 +142,70 @@ transform:translateY(-2px);
 }
 
 .result{
-margin-top:20px;
+margin-top:25px;
 display:none;
 }
 
-.card{
-background:rgba(255,255,255,.06);
-padding:20px;
-border-radius:15px;
-border:1px solid rgba(0,255,255,.15);
+.result-title {
+font-size: 18px;
+font-weight: bold;
+color: #00ffff;
+margin-bottom: 15px;
+text-shadow: 0 0 5px #00ffff;
 }
 
-.status{
-font-size:20px;
-font-weight:bold;
-margin-bottom:12px;
-display: flex;
-align-items: center;
-gap: 10px;
+/* Desain Tabel Hasil Massal */
+.table-responsive {
+overflow-x: auto;
 }
 
-/* Pewarnaan Status Khusus */
-.status-aktif { color: #00ff88; text-shadow: 0 0 10px rgba(0,255,136,.5); }
-.status-mati { color: #ff3333; text-shadow: 0 0 10px rgba(255,51,51,.5); }
-.status-verif { color: #ffaa00; text-shadow: 0 0 10px rgba(255,170,0,.5); }
-.status-proses { color: #00ffff; text-shadow: 0 0 10px rgba(0,255,255,.5); }
+.result-table {
+width: 100%;
+border-collapse: collapse;
+background: rgba(15,23,42,.4);
+backdrop-filter: blur(10px);
+border-radius: 12px;
+overflow: hidden;
+border: 1px solid rgba(0,255,255,.15);
+}
 
-#info {
-font-size: 15px;
-line-height: 1.6;
-border-top: 1px solid rgba(255,255,255,.1);
-padding-top: 12px;
+.result-table th, .result-table td {
+padding: 12px 15px;
+text-align: left;
+border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.result-table th {
+background: rgba(0,255,255,.1);
+color: #00ffff;
+font-weight: bold;
+}
+
+/* Pewarnaan Badge Status Terpisah */
+.badge {
+padding: 4px 10px;
+border-radius: 6px;
+font-weight: bold;
+font-size: 13px;
+text-transform: uppercase;
+}
+
+.badge-aktif {
+background: rgba(0, 255, 136, 0.15);
+color: #00ff88;
+border: 1px solid rgba(0, 255, 136, 0.4);
+}
+
+.badge-mati {
+background: rgba(255, 51, 51, 0.15);
+color: #ff3333;
+border: 1px solid rgba(255, 51, 51, 0.4);
+}
+
+.badge-verif {
+background: rgba(255, 170, 0, 0.15);
+color: #ffaa00;
+border: 1px solid rgba(255, 170, 0, 0.4);
 }
 
 .footer{
@@ -194,34 +231,40 @@ font-size:13px;
 <div class="panel">
 
 <div class="title">
-📧 CEK GMAIL
+📧 MASSAL GMAIL CHECKER
 </div>
 
 <div class="subtitle">
-Masukkan Gmail yang ingin dicek
+Masukkan daftar Gmail (1 email per baris)
 </div>
 
-<input
-type="email"
-id="gmail"
-placeholder="Masukkan Gmail (contoh: user@gmail.com)">
+<!-- Kolom Input Massal -->
+<textarea 
+id="gmailList" 
+placeholder="contoh1@gmail.com&#10;contoh2@gmail.com&#10;contoh3@gmail.com"></textarea>
 
-<button onclick="cekGmail()">
-🔍 CEK GMAIL
+<button onclick="cekGmailMassal()">
+🔍 MULAI CEK MASSAL
 </button>
 
-<div class="result" id="result">
-
-<div class="card">
-
-<div id="statusBox" class="status status-proses">
-⏳ Sedang Memproses...
+<!-- Container Hasil -->
+<div class="result" id="resultContainer">
+<div class="result-title">📊 HASIL PENGECEKAN:</div>
+<div class="table-responsive">
+    <table class="result-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Alamat Gmail</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody id="resultBody">
+            <!-- Data baris email dimasukkan di sini lewat JS -->
+        </tbody>
+    </table>
 </div>
-
-<div id="info"></div>
-
-</div>
-
 </div>
 
 </div>
@@ -233,58 +276,62 @@ CY TEAM GMAIL CHECKER © 2026
 </div>
 
 <script>
-function cekGmail(){
-const gmail = document.getElementById("gmail").value.trim();
-const resultDiv = document.getElementById("result");
-const statusBox = document.getElementById("statusBox");
-const infoDiv = document.getElementById("info");
+function cekGmailMassal(){
+const rawInput = document.getElementById("gmailList").value;
+const resultContainer = document.getElementById("resultContainer");
+const resultBody = document.getElementById("resultBody");
 
-if(!gmail){
-alert("Masukkan Gmail terlebih dahulu");
-return;
+if(!rawInput.trim()){
+    alert("Masukkan daftar akun Gmail terlebih dahulu!");
+    return;
 }
 
-// Validasi format domain agar wajib @gmail.com
-if (!gmail.toLowerCase().endsWith('@gmail.com')) {
-alert("Mohon masukkan alamat email khusus @gmail.com");
-return;
+// Memisahkan teks berdasarkan baris dan membersihkan spasi/kosong
+const emailRows = rawInput.split('\n')
+    .map(email => email.trim())
+    .filter(email => email.length > 0);
+
+if (emailRows.length === 0) {
+    alert("Tidak ada email valid yang ditemukan!");
+    return;
 }
 
-// Tampilkan panel hasil dengan status loading awal
-resultDiv.style.display = "block";
-statusBox.className = "status status-proses";
-statusBox.innerHTML = "⏳ Sedang Memproses...";
-infoDiv.innerHTML = `<b>Email:</b> ${gmail}<br><b>Keterangan:</b> Menghubungi database server...`;
+// Bersihkan data tabel lama dan tampilkan container
+resultBody.innerHTML = "";
+resultContainer.style.display = "block";
 
-// Simulasi proses pengecekan selama 1.5 detik
-setTimeout(() => {
-// Logika simulasi hasil status secara acak ('AKTIF', 'MATI', 'VERIF')
-const statuses = ['AKTIF', 'MATI', 'VERIF'];
-const hasilAcak = statuses[Math.floor(Math.random() * statuses.length)];
+// Menjalankan perulangan pengecekan untuk setiap baris email
+emailRows.forEach((email, index) => {
+    // Array status kemungkinan untuk diacak secara adil
+    const listStatus = ['AKTIF', 'MATI', 'VERIF'];
+    const statusAcak = listStatus[Math.floor(Math.random() * listStatus.length)];
+    
+    let badgeClass = '';
+    let keterangan = '';
 
-if (hasilAcak === 'AKTIF') {
-statusBox.className = "status status-aktif";
-statusBox.innerHTML = "🟢 STATUS: GMAIL AKTIF";
-infoDiv.innerHTML = `
-<b>Email:</b> ${gmail}<br>
-<b>Keterangan:</b> Akun valid, terdaftar di Google, dan siap digunakan.
-`;
-} else if (hasilAcak === 'MATI') {
-statusBox.className = "status status-mati";
-statusBox.innerHTML = "🔴 STATUS: GMAIL MATI";
-infoDiv.innerHTML = `
-<b>Email:</b> ${gmail}<br>
-<b>Keterangan:</b> Akun tidak ditemukan, sudah dihapus, atau dinonaktifkan oleh Google.
-`;
-} else if (hasilAcak === 'VERIF') {
-statusBox.className = "status status-verif";
-statusBox.innerHTML = "🟡 STATUS: GMAIL VERIF";
-infoDiv.innerHTML = `
-<b>Email:</b> ${gmail}<br>
-<b>Keterangan:</b> Akun terdeteksi mengunci (Sesi Habis / Butuh Verifikasi Nomor HP / 2FA).
-`;
-}
-}, 1500);
+    // Menyesuaikan tampilan berdasarkan status acak yang keluar
+    if (statusAcak === 'AKTIF') {
+        badgeClass = 'badge badge-aktif';
+        keterangan = 'Akun valid & siap digunakan.';
+    } else if (statusAcak === 'MATI') {
+        badgeClass = 'badge badge-mati';
+        keterangan = 'Akun tidak ditemukan/dihapus.';
+    } else {
+        badgeClass = 'badge badge-verif';
+        keterangan = 'Butuh verifikasi nomor HP/2FA.';
+    }
+
+    // Membuat baris baru di tabel hasil untuk setiap email
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td>${index + 1}</td>
+        <td style="word-break: break-all; font-weight: 500;">${email}</td>
+        <td><span class="${badgeClass}">${statusAcak}</span></td>
+        <td style="opacity: 0.8; font-size: 14px;">${keterangan}</td>
+    `;
+    
+    resultBody.appendChild(row);
+});
 }
 </script>
 
