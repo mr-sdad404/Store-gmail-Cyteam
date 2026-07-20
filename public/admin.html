@@ -109,11 +109,6 @@ height: 100%;
 object-fit: cover;
 }
 
-.avatar-placeholder {
-font-size: 20px;
-color: #00ffff;
-}
-
 .sidebar-brand {
 font-size: 20px;
 font-weight: bold;
@@ -284,7 +279,7 @@ animation: pulseNeonGreen 1.2s infinite alternate ease-in-out;
 }
 
 @keyframes pulseNeonGreen {
-0% { color: #b3ffd1; text-shadow: 0 0 4px #2da44e, 0 0 10px #2da44e, 0 0 20px #2da44e, 0 0 40px #40ffff; }
+0% { color: #b3ffd1; text-shadow: 0 0 4px #2da44e, 0 0 10px #2da44e, 0 0 20px #2da44e, 0 0 40px #00ffff; }
 100% { color: #ffffff; text-shadow: 0 0 8px #2da44e, 0 0 25px #2da44e, 0 0 50px #2da44e, 0 0 80px #2da44e; }
 }
 
@@ -362,14 +357,15 @@ margin-top:15px;
 <nav class="sidebar" id="sidebarMenu">
 <div class="profile-section">
 <div class="profile-avatar-container" id="avatarContainer">
-<div class="avatar-placeholder">⏳</div>
+<img src="/profile.jpg" alt="Profil Admin" onerror="this.style.display='none'; document.getElementById('placeholderAvatar').style.display='block';">
+<div id="placeholderAvatar" style="display:none; font-size:20px; color:#00ffff;">🤖</div>
 </div>
 <div class="sidebar-brand">ADMIN CY-TEAM STORE</div>
 </div>
 <a href="/">🏠 Home</a>
-<a href="/admin.html" id="navAdmin">👤 Admin</a>
+<a href="/admin.html" class="active">👤 Admin</a>
 <a href="/dashboard.html">📊 Dashboard</a>
-<a href="/cekgmail.html" id="navCekGmail">📧 Cek Gmail</a>
+<a href="/cekgmail.html">📧 Cek Gmail</a>
 </nav>
 
 <div class="main-content">
@@ -377,7 +373,7 @@ margin-top:15px;
 
 <div class="panel" id="loginBox">
 <div class="title">
-🤖 CY TEAM ADMIN PANEL
+🤖 PANEL ADMIN CY-TEAM
 </div>
 <div class="subtitle">
 Login untuk melihat ringkasan status operasional
@@ -392,7 +388,7 @@ Login untuk melihat ringkasan status operasional
 
 <div id="dashboard">
 <div class="panel">
-<div class="title">📡 PANEL ADMIN</div>
+<div class="title">📡 PANEL CONTROL ADMIN</div>
 <div class="subtitle" style="margin-bottom: 20px;">
 Ringkasan Data Aktivitas Validasi Sistem
 </div>
@@ -439,26 +435,6 @@ const sidebar = document.getElementById("sidebarMenu");
 sidebar.classList.toggle("active");
 }
 
-// Mengambil foto profil terpusat dari folder public file /profile.html
-async function muatFotoProfilDinamis() {
-try {
-const respon = await fetch('/profile.html');
-if (!respon.ok) throw new Error();
-const teksHtml = await respon.text();
-const parser = new DOMParser();
-const dokumenProfil = parser.parseFromString(teksHtml, 'text/html');
-const fotoAsli = dokumenProfil.querySelector('img');
-
-if (fotoAsli && fotoAsli.src) {
-document.getElementById('avatarContainer').innerHTML = `<img src="${fotoAsli.src}" alt="Profil">`;
-} else {
-document.getElementById('avatarContainer').innerHTML = `<div class="avatar-placeholder">🤖</div>`;
-}
-} catch (e) {
-document.getElementById('avatarContainer').innerHTML = `<div class="avatar-placeholder">❌</div>`;
-}
-}
-
 let allData = [];
 
 function login(){
@@ -468,7 +444,7 @@ document.getElementById("status").innerHTML = "Memverifikasi sesi admin...";
 
 if (user === "admin" && pass === "admin123") {
 allData = [
-{ waktu: "16:00 WIB" }, { waktu: "17:02 WIB" }, { waktu: "18:05 WIB" }, { waktu: "19:13 WIB" }
+{ waktu: "16:00 WIB" }, { waktu: "17:02 WIB" }, { waktu: "18:05 WIB" }, { waktu: "19:10 WIB" }
 ];
 document.getElementById("loginBox").style.display = "none";
 document.getElementById("dashboard").style.display = "block";
@@ -485,22 +461,16 @@ let html = "";
 data.forEach((v, index)=>{
 html += `
 <div class="card">
-📦 ID Log Operasional: SYS-LOG-${1000 + index}
-</div>
-<div class="time">
-🕒 Waktu Sinkronisasi: ${v.waktu}
-</div>
-</div>
-`;
+<div class="gmail">📦 ID Log Operasional: SYS-LOG-${1000 + index}</div>
+<div class="time">🕒 Waktu Sinkronisasi: ${v.waktu}</div>
+</div>`;
 });
 document.getElementById("hasil").innerHTML = html || "<p style='text-align:center; opacity:0.5;'>Tidak ada log aktivitas.</p>";
 }
 
 function filterData(){
 const keyword = document.getElementById("search").value.toLowerCase();
-const filtered = allData.filter((x, index) => 
-`SYS-LOG-${1000 + index}`.toLowerCase().includes(keyword)
-);
+const filtered = allData.filter((x, index) => `SYS-LOG-${1000 + index}`.toLowerCase().includes(keyword));
 renderData(filtered);
 }
 </script>
