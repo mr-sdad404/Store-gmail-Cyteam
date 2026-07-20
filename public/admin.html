@@ -29,25 +29,55 @@ color:white;
 min-height:100vh;
 display: flex;
 flex-direction: column;
+overflow-x: hidden;
 }
 
-/* --- STRUKTUR SIDEBAR BARU --- */
+/* --- TOMBOL SAKLAR MENU (TOGGLE BUTTON) --- */
+.menu-btn {
+position: fixed;
+top: 15px;
+left: 15px;
+z-index: 1100;
+background: rgba(15, 23, 42, 0.9);
+color: #00ffff;
+border: 1px solid rgba(0,255,255,.4);
+padding: 10px 15px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+box-shadow: 0 0 10px rgba(0,255,255,0.2);
+width: auto;
+margin-top: 0;
+}
+
+/* --- STRUKTUR SIDEBAR DENGAN SISTEM SLIDE --- */
 .sidebar {
 position: fixed;
 top: 0;
 left: 0;
 height: 100vh;
-width: 240px;
-background: rgba(15, 23, 42, 0.85);
+width: 240px; 
+background: rgba(15, 23, 42, 0.95);
 backdrop-filter: blur(15px);
 -webkit-backdrop-filter: blur(15px);
 border-right: 1px solid rgba(0,255,255,.3);
-padding: 25px 15px;
+padding: 70px 15px 20px 15px; /* Ditambah padding atas agar tidak tertutup tombol */
 display: flex;
 flex-direction: column;
 gap: 12px;
 z-index: 1000;
-transition: 0.3s;
+transition: transform 0.3s ease; /* Efek animasi geser halus */
+}
+
+/* Menyembunyikan sidebar ke kiri luar layar secara default pada HP */
+@media (max-width: 768px) {
+.sidebar {
+transform: translateX(-100%);
+}
+/* Class tambahan saat menu aktif/terbuka */
+.sidebar.active {
+transform: translateX(0);
+}
 }
 
 .sidebar-brand {
@@ -56,15 +86,16 @@ font-weight: bold;
 color: #00ffff;
 text-shadow: 0 0 10px #00ffff;
 text-align: center;
-margin-bottom: 25px;
+margin-bottom: 20px;
 border-bottom: 1px solid rgba(0,255,255,.2);
 padding-bottom: 15px;
+white-space: nowrap;
 }
 
 .sidebar a {
 text-decoration: none;
 color: #00ffff;
-padding: 12px 18px;
+padding: 12px 15px;
 border: 1px solid rgba(0,255,255,.2);
 border-radius: 12px;
 transition: .3s;
@@ -73,6 +104,7 @@ background: rgba(255,255,255,.03);
 display: flex;
 align-items: center;
 gap: 10px;
+white-space: nowrap;
 }
 
 .sidebar a:hover, .sidebar a.active {
@@ -83,17 +115,26 @@ box-shadow:
 0 0 20px #00ffff;
 }
 
-/* Area Konten Utama di samping Sidebar */
+/* Area Konten Utama */
 .main-content {
 margin-left: 240px;
 flex: 1;
 width: calc(100% - 240px);
+transition: 0.3s ease;
+}
+
+@media (max-width: 768px) {
+.main-content {
+margin-left: 0;
+width: 100%;
+}
 }
 
 .container{
 max-width: 1000px;
 margin: auto;
 padding: 25px;
+padding-top: 70px; /* Jarak atas di HP agar tidak tertutup tombol menu */
 }
 
 .panel{
@@ -143,7 +184,8 @@ input::placeholder{
 color:#cfcfcf;
 }
 
-button{
+/* Tombol Login */
+.panel button {
 width:100%;
 padding:15px;
 margin-top:15px;
@@ -157,7 +199,7 @@ cursor:pointer;
 transition:.3s;
 }
 
-button:hover{
+.panel button:hover{
 transform:translateY(-2px);
 box-shadow:
 0 0 15px #00ffff,
@@ -186,7 +228,7 @@ margin-bottom:8px;
 font-size:14px;
 }
 
-/* --- EFEK GLOW / GLOWING ANIMASI BARU --- */
+/* --- EFEK GLOWING ANIMASI --- */
 .glow-text {
 font-size: 28px;
 font-weight: bold;
@@ -210,21 +252,13 @@ animation: pulseGlowGreen 2s infinite alternate;
 }
 
 @keyframes pulseGlow {
-0% {
-text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
-}
-100% {
-text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff, 0 0 35px #00ffff;
-}
+0% { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
+100% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff, 0 0 35px #00ffff; }
 }
 
 @keyframes pulseGlowGreen {
-0% {
-text-shadow: 0 0 5px #2da44e, 0 0 10px #2da44e, 0 0 15px #2da44e;
-}
-100% {
-text-shadow: 0 0 10px #2da44e, 0 0 25px #2da44e, 0 0 35px #2da44e;
-}
+0% { text-shadow: 0 0 5px #2da44e, 0 0 10px #2da44e, 0 0 15px #2da44e; }
+100% { text-shadow: 0 0 10px #2da44e, 0 0 25px #2da44e, 0 0 35px #2da44e; }
 }
 
 .search{
@@ -281,36 +315,24 @@ text-align:center;
 margin-top:15px;
 }
 
-/* PENYESUAIAN MOBILE UNTUK LAYAR ANDROID */
-@media (max-width: 768px) {
+/* LAYAR UTK DESTOP / LAYAR LEBAR */
+@media (min-width: 769px) {
+.menu-btn {
+display: none; /* Tombol disembunyikan di laptop/komputer karena sidebar menetap */
+}
 .sidebar {
-width: 60px;
-padding: 25px 5px;
-}
-.sidebar-brand {
-font-size: 11px;
-padding-bottom: 10px;
-word-break: break-all;
-}
-.sidebar a {
-padding: 10px;
-justify-content: center;
-font-size: 0; /* Menyembunyikan teks menu, hanya menyisakan emoji di HP */
-}
-.sidebar a::before {
-font-size: 18px;
-}
-.main-content {
-margin-left: 60px;
-width: calc(100% - 60px);
+transform: translateX(0) !important;
 }
 }
 </style>
 </head>
 <body>
 
-<!-- Sidebar Menu (Menggantikan Navbar Atas) -->
-<nav class="sidebar">
+<!-- Tombol Pemicu Buka/Tutup Menu -->
+<button class="menu-btn" onclick="toggleSidebar()">☰ MENU</button>
+
+<!-- Sidebar Menu (Slide List) -->
+<nav class="sidebar" id="sidebarMenu">
 <div class="sidebar-brand">CY PANEL</div>
 <a href="/">🏠 Home</a>
 <a href="/admin.html" class="active">👤 Admin</a>
@@ -360,19 +382,16 @@ Ringkasan Data Aktivitas Validasi Sistem (Simulasi lokal)
 <div class="stats">
 <div class="stat-card">
 <div class="stat-title">Total Setoran</div>
-<!-- Nilai Kustom Anda Dengan Efek Neon Glow -->
 <div class="glow-text" id="totalSetoran">8755</div>
 </div>
 
 <div class="stat-card">
 <div class="stat-title">Total Akun Dicek</div>
-<!-- Nilai Kustom Anda Dengan Efek Neon Glow -->
 <div class="glow-text" id="totalDicek">1367</div>
 </div>
 
 <div class="stat-card">
 <div class="stat-title">Status Sinkronisasi</div>
-<!-- Status AKTIF Dengan Efek Neon Glow Hijau -->
 <div class="glow-active">AKTIF</div>
 </div>
 </div>
@@ -404,6 +423,12 @@ CY TEAM ADMIN PANEL © 2026
 </div>
 
 <script>
+// --- FUNGSI BARU UTAK-ATIK SIDEBAR DI HP ---
+function toggleSidebar() {
+const sidebar = document.getElementById("sidebarMenu");
+sidebar.classList.toggle("active");
+}
+
 let allData = [];
 
 function login(){
@@ -426,10 +451,6 @@ allData = [
 
 document.getElementById("loginBox").style.display = "none";
 document.getElementById("dashboard").style.display = "block";
-
-// PERBAIKAN: Baris script penimpa teks di bawah ini dinonaktifkan agar nilai HTML manual Anda tidak berubah.
-// document.getElementById("totalSetoran").innerText = allData.length + " Berkas";
-// document.getElementById("totalDicek").innerText = (allData.length * 12) + " Antrean";
 
 renderData(allData);
 document.getElementById("status").innerHTML = "";
