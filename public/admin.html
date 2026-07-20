@@ -32,7 +32,7 @@ flex-direction: column;
 overflow-x: hidden;
 }
 
-/* --- TOMBOL SAKLAR MENU (TOGGLE BUTTON) --- */
+/* --- TOMBOL SAKLAR MENU --- */
 .menu-btn {
 position: fixed;
 top: 15px;
@@ -40,41 +40,39 @@ left: 15px;
 z-index: 1100;
 background: rgba(15, 23, 42, 0.9);
 color: #00ffff;
-border: 1px solid rgba(0,255,255,.4);
+border: 1px solid rgba(0,255,255,.6);
 padding: 10px 15px;
 border-radius: 8px;
 cursor: pointer;
 font-weight: bold;
-box-shadow: 0 0 10px rgba(0,255,255,0.2);
+box-shadow: 0 0 15px rgba(0,255,255,0.4);
 width: auto;
 margin-top: 0;
 }
 
-/* --- STRUKTUR SIDEBAR DENGAN SISTEM SLIDE --- */
+/* --- STRUKTUR SIDEBAR --- */
 .sidebar {
 position: fixed;
 top: 0;
 left: 0;
 height: 100vh;
 width: 240px; 
-background: rgba(15, 23, 42, 0.95);
+background: rgba(15, 23, 42, 0.98);
 backdrop-filter: blur(15px);
 -webkit-backdrop-filter: blur(15px);
-border-right: 1px solid rgba(0,255,255,.3);
-padding: 70px 15px 20px 15px; /* Ditambah padding atas agar tidak tertutup tombol */
+border-right: 1px solid rgba(0,255,255,.5);
+padding: 70px 15px 20px 15px;
 display: flex;
 flex-direction: column;
 gap: 12px;
 z-index: 1000;
-transition: transform 0.3s ease; /* Efek animasi geser halus */
+transition: transform 0.3s ease;
 }
 
-/* Menyembunyikan sidebar ke kiri luar layar secara default pada HP */
 @media (max-width: 768px) {
 .sidebar {
 transform: translateX(-100%);
 }
-/* Class tambahan saat menu aktif/terbuka */
 .sidebar.active {
 transform: translateX(0);
 }
@@ -134,7 +132,7 @@ width: 100%;
 max-width: 1000px;
 margin: auto;
 padding: 25px;
-padding-top: 70px; /* Jarak atas di HP agar tidak tertutup tombol menu */
+padding-top: 80px; /* Ditambah agar konten turun dan tidak bertabrakan dengan tombol menu */
 }
 
 .panel{
@@ -156,8 +154,8 @@ font-size:30px;
 font-weight:bold;
 color:#00ffff;
 text-shadow:
-0 0 10px #00ffff,
-0 0 20px #00ffff;
+0 0 15px #00ffff,
+0 0 25px #00ffff;
 margin-bottom:10px;
 }
 
@@ -184,7 +182,6 @@ input::placeholder{
 color:#cfcfcf;
 }
 
-/* Tombol Login */
 .panel button {
 width:100%;
 padding:15px;
@@ -214,9 +211,9 @@ margin-bottom:20px;
 }
 
 .stat-card{
-background:rgba(255,255,255,.06);
+background:rgba(255,255,255,.04);
 backdrop-filter:blur(10px);
-padding:20px;
+padding:25px;
 border-radius:18px;
 border:1px solid rgba(0,255,255,.2);
 text-align:center;
@@ -224,41 +221,64 @@ text-align:center;
 
 .stat-title{
 opacity:.8;
-margin-bottom:8px;
+margin-bottom:12px;
 font-size:14px;
+letter-spacing: 1px;
 }
 
-/* --- EFEK GLOWING ANIMASI --- */
+/* --- UPDATE PERBAIKAN: EFEK LAMPU INDIKATOR NEON BERDENYUT KUAT --- */
 .glow-text {
-font-size: 28px;
+font-size: 34px;
 font-weight: bold;
-color: #00ffff;
-text-shadow: 
-0 0 5px #00ffff,
-0 0 15px #00ffff,
-0 0 25px #00ffff;
-animation: pulseGlow 2s infinite alternate;
+color: #ffffff;
+animation: pulseNeonCyan 1.2s infinite alternate ease-in-out;
 }
 
 .glow-active {
-font-size: 28px;
+font-size: 34px;
 font-weight: bold;
-color: #2da44e;
+color: #ffffff;
+animation: pulseNeonGreen 1.2s infinite alternate ease-in-out;
+}
+
+/* Animasi Denyut Indikator Cyan */
+@keyframes pulseNeonCyan {
+0% {
+color: #a7ffff;
 text-shadow: 
-0 0 5px #2da44e,
-0 0 15px #2da44e,
-0 0 25px #2da44e;
-animation: pulseGlowGreen 2s infinite alternate;
+0 0 4px #00ffff, 
+0 0 10px #00ffff, 
+0 0 20px #00ffff, 
+0 0 40px #00ffff;
+}
+100% {
+color: #ffffff;
+text-shadow: 
+0 0 8px #00ffff, 
+0 0 25px #00ffff, 
+0 0 50px #00ffff, 
+0 0 80px #00ffff;
+}
 }
 
-@keyframes pulseGlow {
-0% { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
-100% { text-shadow: 0 0 10px #00ffff, 0 0 25px #00ffff, 0 0 35px #00ffff; }
+/* Animasi Denyut Indikator Hijau */
+@keyframes pulseNeonGreen {
+0% {
+color: #b3ffd1;
+text-shadow: 
+0 0 4px #2da44e, 
+0 0 10px #2da44e, 
+0 0 20px #2da44e, 
+0 0 40px #2da44e;
 }
-
-@keyframes pulseGlowGreen {
-0% { text-shadow: 0 0 5px #2da44e, 0 0 10px #2da44e, 0 0 15px #2da44e; }
-100% { text-shadow: 0 0 10px #2da44e, 0 0 25px #2da44e, 0 0 35px #2da44e; }
+100% {
+color: #ffffff;
+text-shadow: 
+0 0 8px #2da44e, 
+0 0 25px #2da44e, 
+0 0 50px #2da44e, 
+0 0 80px #2da44e;
+}
 }
 
 .search{
@@ -315,10 +335,18 @@ text-align:center;
 margin-top:15px;
 }
 
-/* LAYAR UTK DESTOP / LAYAR LEBAR */
+@media (max-width: 768px) {
+.menu-btn {
+display: block;
+}
+.container {
+padding-top: 80px; /* Memberikan ruang ekstra di HP agar judul tidak terpotong */
+}
+}
+
 @media (min-width: 769px) {
 .menu-btn {
-display: none; /* Tombol disembunyikan di laptop/komputer karena sidebar menetap */
+display: none;
 }
 .sidebar {
 transform: translateX(0) !important;
@@ -331,9 +359,9 @@ transform: translateX(0) !important;
 <!-- Tombol Pemicu Buka/Tutup Menu -->
 <button class="menu-btn" onclick="toggleSidebar()">☰ MENU</button>
 
-<!-- Sidebar Menu (Slide List) -->
+<!-- Sidebar Menu -->
 <nav class="sidebar" id="sidebarMenu">
-<div class="sidebar-brand">CY PANEL</div>
+<div class="sidebar-brand">PANEL ADMIN CY-TEAM</div>
 <a href="/">🏠 Home</a>
 <a href="/admin.html" class="active">👤 Admin</a>
 <a href="/dashboard.html">📊 Dashboard</a>
@@ -349,7 +377,7 @@ transform: translateX(0) !important;
 🤖 CY TEAM ADMIN PANEL
 </div>
 <div class="subtitle">
-Login simulator untuk melihat ringkasan status operasional
+Login untuk melihat ringkasan status operasional
 </div>
 
 <input
@@ -372,10 +400,10 @@ placeholder="Password Admin">
 <div id="dashboard">
 <div class="panel">
 <div class="title">
-📊 DASHBOARD UTAMA
+📡 PANEL CONTROL ADMIN
 </div>
 <div class="subtitle" style="margin-bottom: 20px;">
-Ringkasan Data Aktivitas Validasi Sistem (Simulasi lokal)
+Ringkasan Data Aktivitas Validasi Sistem
 </div>
 
 <!-- Grid Kartu Statistik -->
@@ -399,7 +427,7 @@ Ringkasan Data Aktivitas Validasi Sistem (Simulasi lokal)
 <!-- Spanduk Status Notifikasi Internal -->
 <div class="card" style="border-left: 5px solid #00ffff; margin-bottom: 25px;">
 <div class="system-log">
-📢 <strong>Keterangan Sistem:</strong> <span class="log-status">Berhasil Terkirim</span>. Ringkasan log enkripsi aktivitas operasional harian telah diperbarui pada sistem penyimpanan Admin.
+📢 <strong>Keterangan Sistem:</strong> <span class="log-status">Berhasil Terkirim</span>. Semua Data log enkripsi aktivitas operasional telah diperbarui pada sistem penyimpanan Admin.
 </div>
 </div>
 
@@ -423,7 +451,6 @@ CY TEAM ADMIN PANEL © 2026
 </div>
 
 <script>
-// --- FUNGSI BARU UTAK-ATIK SIDEBAR DI HP ---
 function toggleSidebar() {
 const sidebar = document.getElementById("sidebarMenu");
 sidebar.classList.toggle("active");
@@ -444,9 +471,9 @@ if (user === usernameSistem && pass === passwordSistem) {
 
 allData = [
 { waktu: "16:00 WIB" },
-{ waktu: "16:02 WIB" },
-{ waktu: "16:05 WIB" },
-{ waktu: "16:10 WIB" }
+{ waktu: "17:15 WIB" },
+{ waktu: "18:07 WIB" },
+{ waktu: "18:10 WIB" }
 ];
 
 document.getElementById("loginBox").style.display = "none";
