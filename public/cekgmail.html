@@ -32,7 +32,7 @@ flex-direction: column;
 overflow-x: hidden;
 }
 
-/* --- TOMBOL SAKLAR MENU (SIDEBAR TOGGLE) --- */
+/* --- TOMBOL SAKLAR MENU --- */
 .menu-btn {
 position: fixed;
 top: 15px;
@@ -50,7 +50,7 @@ width: auto;
 margin-top: 0;
 }
 
-/* --- STRUKTUR SIDEBAR YANG SERASI --- */
+/* --- STRUKTUR SIDEBAR DENGAN FOTO PROFIL --- */
 .sidebar {
 position: fixed;
 top: 0;
@@ -61,7 +61,7 @@ background: rgba(15, 23, 42, 0.95);
 backdrop-filter: blur(15px);
 -webkit-backdrop-filter: blur(15px);
 border-right: 1px solid rgba(0,255,255,.5);
-padding: 70px 15px 20px 15px;
+padding: 25px 15px 20px 15px;
 display: flex;
 flex-direction: column;
 gap: 12px;
@@ -72,10 +72,41 @@ transition: transform 0.3s ease;
 @media (max-width: 768px) {
 .sidebar {
 transform: translateX(-100%);
+padding-top: 70px;
 }
 .sidebar.active {
 transform: translateX(0);
 }
+}
+
+/* --- PANEL FOTO PROFIL SIDEBAR --- */
+.profile-section {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-bottom: 15px;
+width: 100%;
+}
+
+.profile-avatar-container {
+width: 90px;
+height: 90px;
+border-radius: 50%;
+overflow: hidden;
+border: 2px solid #00ffff;
+box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(0, 0, 0, 0.3);
+}
+
+.profile-avatar-container img {
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 .sidebar-brand {
@@ -88,6 +119,7 @@ margin-bottom: 20px;
 border-bottom: 1px solid rgba(0,255,255,.2);
 padding-bottom: 15px;
 white-space: nowrap;
+width: 100%;
 }
 
 .sidebar a {
@@ -132,7 +164,7 @@ width: 100%;
 max-width:800px;
 margin:auto;
 padding:25px;
-padding-top: 80px; /* Jarak atas agar tidak tertutup tombol menu */
+padding-top: 80px; 
 }
 
 .panel{
@@ -146,7 +178,7 @@ box-shadow:
 0 0 50px rgba(0,255,255,.08);
 }
 
-/* --- JUDUL UTAMA DENGAN EFEK NEON DENYUT --- */
+/* --- JUDUL DENGAN EFEK NEON DENYUT --- */
 .title{
 text-align:center;
 font-size:30px;
@@ -245,7 +277,7 @@ color: #00ffff;
 font-weight: bold;
 }
 
-/* --- KUSTOMISASI BADGE STATUS INDIKATOR BERDENYUT KUAT --- */
+/* --- BADGE STATUS INDIKATOR NEON GLOW --- */
 .badge {
 padding: 6px 12px;
 border-radius: 6px;
@@ -276,7 +308,7 @@ border: 1px solid rgba(255, 170, 0, 0.6);
 animation: pulseNeonOrange 1s infinite alternate ease-in-out;
 }
 
-/* --- ANIMASI KEYFRAMES NEON PULSE INDIKATOR --- */
+/* --- ANIMASI KEYFRAMES --- */
 @keyframes pulseNeonCyan {
 0% { color: #a7ffff; text-shadow: 0 0 4px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff; }
 100% { color: #ffffff; text-shadow: 0 0 8px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
@@ -308,81 +340,67 @@ font-size:13px;
 @media (max-width: 768px) {
 .menu-btn { display: block; }
 .container { padding-top: 80px; }
+.profile-avatar-container { width: 75px; height: 75px; }
 }
 
 @media (min-width: 769px) {
 .menu-btn { display: none; }
-.sidebar { transform: translateX(0) !important; }
+.sidebar { transform: translateX(0) !important; padding-top: 25px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Tombol Pemicu Buka/Tutup Menu -->
 <button class="menu-btn" onclick="toggleSidebar()">☰ MENU</button>
 
-<!-- Sidebar Menu (Serasi dengan Halaman Admin) -->
+<!-- Sidebar Ber-profil -->
 <nav class="sidebar" id="sidebarMenu">
-<div class="sidebar-brand">CY PANEL</div>
+<div class="profile-section">
+<div class="profile-avatar-container" id="avatarContainer">
+<img src="/profile.jpg" alt="Profil Admin" onerror="this.style.display='none'; document.getElementById('placeholderAvatar').style.display='block';">
+<div id="placeholderAvatar" style="display:none; font-size:20px; color:#00ffff;">🤖</div>
+</div>
+<div class="sidebar-brand">CY-TEAM STORE GMAIL</div>
+</div>
 <a href="/">🏠 Home</a>
 <a href="/admin.html">👤 Admin</a>
 <a href="/dashboard.html">📊 Dashboard</a>
 <a href="/cekgmail.html" class="active">📧 Cek Gmail</a>
 </nav>
 
-<!-- Wadah Utama Konten -->
 <div class="main-content">
 <div class="container">
 
 <div class="panel">
-<div class="title">
-📧 CEK GMAIL CY-TEAM STORE
-</div>
-<div class="subtitle">
-Isi Dengan Akun Gmail Yang Ingin Di Cek !
-</div>
+<div class="title">📧 CEK GMAIL CY-TEAM STORE</div>
+<div class="subtitle">Isi Dengan Akun Gmail Yang Ingin Di Cek !</div>
 
-<!-- Kolom Input Massal -->
-<textarea 
-id="gmailList" 
-placeholder="akun1@gmail.com
-akun2@gmail.com
-akun3@gmail.com"></textarea>
+<textarea id="gmailList" placeholder="akun1@gmail.com&#10;akun2@gmail.com&#10;akun3@gmail.com"></textarea>
+<button onclick="cekGmailMassal()">🔍 CEK GMAIL</button>
 
-<button onclick="cekGmailMassal()">
-🔍 CEK GMAIL
-</button>
-
-<!-- Container Hasil -->
 <div class="result" id="resultContainer">
-<div class="result-title">📊 HASIL PENGECEKAN:</div>
+<div class="result-title">✅ HASIL PENGECEKAN:</div>
 <div class="table-responsive">
-    <table class="result-table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Alamat Gmail</th>
-                <th>Status</th>
-                <th>Keterangan</th>
-            </tr>
-        </thead>
-        <tbody id="resultBody">
-            <!-- Data baris dimasukkan lewat JS -->
-        </tbody>
-    </table>
+<table class="result-table">
+<thead>
+<tr>
+<th>No</th>
+<th>Alamat Gmail</th>
+<th>Status</th>
+<th>Keterangan</th>
+</tr>
+</thead>
+<tbody id="resultBody"></tbody>
+</table>
 </div>
 </div>
-
 </div>
 
-<div class="footer">
-CY TEAM GMAIL CHECKER © 2026
-</div>
+<div class="footer">CY TEAM GMAIL CHECKER © 2026</div>
 </div>
 </div>
 
 <script>
-// Fungsi Kontrol Navigasi Geser Sidebar
 function toggleSidebar() {
 const sidebar = document.getElementById("sidebarMenu");
 sidebar.classList.toggle("active");
@@ -394,49 +412,43 @@ const resultContainer = document.getElementById("resultContainer");
 const resultBody = document.getElementById("resultBody");
 
 if(!rawInput.trim()){
-    alert("Masukkan daftar akun Gmail terlebih dahulu!");
-    return;
+alert("Masukkan daftar akun Gmail terlebih dahulu!");
+return;
 }
 
-const emailRows = rawInput.split('\n')
-    .map(email => email.trim())
-    .filter(email => email.length > 0);
-
+const emailRows = rawInput.split('\n').map(email => email.trim()).filter(email => email.length > 0);
 if (emailRows.length === 0) {
-    alert("Tidak ada email valid yang ditemukan!");
-    return;
+alert("Tidak ada email valid yang ditemukan!");
+return;
 }
 
 resultBody.innerHTML = "";
 resultContainer.style.display = "block";
 
 emailRows.forEach((email, index) => {
-    const listStatus = ['AKTIF', 'MATI', 'VERIF'];
-    const statusAcak = listStatus[Math.floor(Math.random() * listStatus.length)];
-    
-    let badgeClass = '';
-    let keterangan = '';
+const listStatus = ['AKTIF', 'MATI', 'VERIF'];
+const statusAcak = listStatus[Math.floor(Math.random() * listStatus.length)];
+let badgeClass = '';
+let keterangan = '';
 
-    if (statusAcak === 'AKTIF') {
-        badgeClass = 'badge badge-aktif';
-        keterangan = 'Akun valid & siap digunakan.';
-    } else if (statusAcak === 'MATI') {
-        badgeClass = 'badge badge-mati';
-        keterangan = 'Akun tidak ditemukan/dihapus.';
-    } else {
-        badgeClass = 'badge badge-verif';
-        keterangan = 'Butuh verifikasi nomor HP/2FA.';
-    }
+if (statusAcak === 'AKTIF') {
+badgeClass = 'badge badge-aktif';
+keterangan = 'Akun valid & siap digunakan.';
+} else if (statusAcak === 'MATI') {
+badgeClass = 'badge badge-mati';
+keterangan = 'Akun tidak ditemukan/dihapus.';
+} else {
+badgeClass = 'badge badge-verif';
+keterangan = 'Butuh verifikasi nomor HP/2FA.';
+}
 
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${index + 1}</td>
-        <td style="word-break: break-all; font-weight: 500;">${email}</td>
-        <td><span class="${badgeClass}">${statusAcak}</span></td>
-        <td style="opacity: 0.8; font-size: 14px;">${keterangan}</td>
-    `;
-    
-    resultBody.appendChild(row);
+const row = document.createElement('tr');
+row.innerHTML = `
+<td>${index + 1}</td>
+<td style="word-break: break-all; font-weight: 500;">${email}</td>
+<td><span class="${badgeClass}">${statusAcak}</span></td>
+<td style="opacity: 0.8; font-size: 14px;">${keterangan}</td>`;
+resultBody.appendChild(row);
 });
 }
 </script>
