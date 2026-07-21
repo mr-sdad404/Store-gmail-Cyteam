@@ -32,20 +32,21 @@ background: var(--bg-color);
 background-size:cover;background-position:center;background-attachment:fixed;
 color: var(--text-color);min-height:100vh;
 transition: background 0.3s ease, color 0.3s ease;
+overflow-x: hidden;
 }
+
+/* TOMBOL MENU & INDIKATOR FIXED */
 .menu-btn{
 position:fixed;top:20px;left:20px;width:55px;height:55px;border:none;
 border-radius:16px;cursor:pointer;font-size:24px;font-weight:bold;
-background:linear-gradient(135deg,#00ffff,#6a00ff);color:#fff;z-index:1001
+background:linear-gradient(135deg,#00ffff,#6a00ff);color:#fff;z-index:1003
 }
-
-/* INDIKATOR ONLINE (Pojok Kiri Atas di samping Menu) */
 .online-counter {
 position: fixed;top: 25px;left: 90px;
 display: flex;align-items: center;gap: 8px;
 background: var(--glass-bg);border: 1px solid var(--border-color);
 padding: 10px 16px;border-radius: 30px;backdrop-filter: blur(10px);
-z-index: 1000;font-size: 13px;font-weight: bold;
+z-index: 1003;font-size: 13px;font-weight: bold;
 }
 .online-dot {
 width: 10px;height: 10px;background-color: #34c759;
@@ -58,14 +59,16 @@ animation: pulse 1.5s infinite;
 100% { transform: scale(0.9); opacity: 0.6; }
 }
 
+/* SIDEBAR & OVERLAY */
 .sidebar{
 position:fixed;top:0;left:-320px;width:300px;height:100%;
-padding:20px;transition:.35s;overflow-y:auto;z-index:1002;
+padding:20px;transition:.35s;overflow-y:auto;z-index:1005;
 background: var(--sidebar-bg);backdrop-filter:blur(20px)
 }
 .sidebar.active{left:0}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:1000}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:1004}
 .overlay.active{display:block}
+
 .profile{text-align:center;margin-bottom:20px}
 .profile img{width:90px;height:90px;border-radius:50%;border:3px solid #00ffff}
 .profile h2{margin-top:10px;color:#00ffff}
@@ -83,78 +86,81 @@ display:block;text-decoration:none;color: var(--text-color);padding:14px;
 margin-top:10px;border-radius:14px;background:rgba(255,255,255,.06);
 border: 1px solid var(--border-color);
 }
-.container{max-width:900px;margin:auto;padding:100px 20px 30px}
-.hero{text-align:center;margin-bottom:20px}
-.hero h1{color:#00ffff}
 
-/* ─── KOTAK PENGOBROLAN (CHAT BOX) ─── */
+/* CONTAINER RESPONSIF LAYAR HP */
+.container{
+max-width:900px;margin:auto;
+padding:100px 15px 20px; /* Jarak atas ditambah agar tidak tertutup tombol online */
+}
+.hero{text-align:center;margin-bottom:15px}
+.hero h1{font-size: 24px; color:#00ffff}
+.hero p{font-size: 14px; opacity:0.8}
+
+/* KOTAK OBROLAN MENYESUAIKAN TINGGI LAYAR HP */
 .chat-container {
 background: var(--glass-bg);backdrop-filter:blur(15px);
 border:1px solid var(--border-color);border-radius:24px;
-display: flex;flex-direction: column;height: 550px;overflow: hidden;
+display: flex;flex-direction: column;
+height: calc(100vh - 220px); /* Memakai sisa space tinggi layar HP secara akurat */
+min-height: 400px;
+overflow: hidden;
 box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 .chat-messages {
-flex: 1;padding: 20px;overflow-y: auto;
+flex: 1;padding: 15px;overflow-y: auto;
 background: var(--chat-box-bg);display: flex;flex-direction: column;gap: 15px;
 }
 
-/* Desain Balon Chat */
-.message { max-width: 75%; display: flex; flex-direction: column; }
+/* BALON CHAT AMAN DARI TEKS TERPOTONG */
+.message { max-width: 85%; display: flex; flex-direction: column; }
 .message .meta { font-size: 11px; opacity: 0.6; margin-bottom: 4px; padding: 0 5px; }
-.message .bubble { padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.4; word-break: break-word; }
+.message .bubble { 
+padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.4; 
+word-wrap: break-word; word-break: break-word; overflow-wrap: break-word; /* Mengunci text panjang agar membungkus ke bawah */
+}
 
-/* Pesan Masuk (Orang Lain) */
 .message.received { align-self: flex-start; }
 .message.received .bubble { background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-color); border-top-left-radius: 4px; }
 
-/* Pesan Keluar (Anda) */
 .message.sent { align-self: flex-end; }
 .message.sent .bubble { background: linear-gradient(135deg, #00ffff, #6a00ff); color: #fff; border-top-right-radius: 4px; box-shadow: 0 4px 12px rgba(0,255,255,0.2); }
 
-/* Lampiran Gambar di Dalam Chat */
-.chat-img-preview { max-width: 100%; border-radius: 10px; margin-top: 5px; max-height: 200px; object-fit: cover; }
+.chat-img-preview { max-width: 100%; border-radius: 10px; margin-top: 5px; max-height: 180px; object-fit: cover; }
 
-/* ─── KOLAM PENGETIKAN PESAN ─── */
+/* PANEL SUBMIT BAWAH RESPONSIF */
 .chat-input-area {
-padding: 15px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--border-color);
-display: flex; align-items: center; gap: 10px;
+padding: 12px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--border-color);
+display: flex; align-items: center; gap: 8px;
 }
 .btn-attach {
-width: 46px; height: 46px; border: 1px solid var(--border-color);
+width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--border-color);
 background: var(--glass-bg); color: var(--glow-color); border-radius: 50%;
 font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-transition: 0.2s; outline: none;
+outline: none;
 }
-.btn-attach:hover { background: var(--glow-color); color: #0a0f23; box-shadow: 0 0 10px var(--glow-color); }
-
 .input-box {
-flex: 1; height: 46px; background: rgba(255,255,255,0.05);
-border: 1px solid var(--border-color); border-radius: 25px; padding: 0 20px;
-color: var(--text-color); font-size: 14px; outline: none; transition: 0.3s;
+flex: 1; height: 44px; min-width: 0; background: rgba(255,255,255,0.05);
+border: 1px solid var(--border-color); border-radius: 22px; padding: 0 15px;
+color: var(--text-color); font-size: 14px; outline: none;
 }
-.input-box:focus { border-color: var(--glow-color); box-shadow: 0 0 10px rgba(0,255,255,0.2); }
-
 .btn-send {
-height: 46px; padding: 0 22px; border: none;
+height: 44px; padding: 0 18px; flex-shrink: 0; border: none;
 background: linear-gradient(135deg, #00ffff, #6a00ff); color: #fff;
-border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.2s;
+border-radius: 22px; font-weight: bold; cursor: pointer;
 }
-.btn-send:hover { transform: scale(1.03); box-shadow: 0 0 15px rgba(0,255,255,0.5); }
 
 #fileInput { display: none; }
+.footer{text-align:center;padding:15px;opacity:.5;font-size:12px}
 
-.footer{text-align:center;padding:25px;opacity:.7}
+/* BUTTON WA MELAYANG INDEPENDEN */
 .wa-floating-btn {
-position: fixed;bottom: 30px;right: 30px;
+position: fixed;bottom: 20px;right: 20px;
 background: rgba(10, 15, 35, 0.8);color: #00ffff;
-border: 1px solid #00ffff;padding: 12px 20px;border-radius: 50px;
-display: flex;align-items: center;gap: 10px;text-decoration: none;
-font-size: 14px;font-weight: bold;box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-backdrop-filter: blur(10px);z-index: 9999;transition: all 0.3s ease;
+border: 1px solid #00ffff;padding: 10px 16px;border-radius: 50px;
+display: flex;align-items: center;gap: 8px;text-decoration: none;
+font-size: 12px;font-weight: bold;box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+backdrop-filter: blur(10px);z-index: 999;transition: all 0.3s ease;
 }
-.wa-floating-btn:hover { transform: translateY(-5px);background: #00ffff;color: #0a0f23;box-shadow: 0 0 25px #00ffff; }
-.wa-floating-btn:hover svg { fill: #0a0f23 !important; }
 </style>
 </head>
 <body>
@@ -166,11 +172,11 @@ backdrop-filter: blur(10px);z-index: 9999;transition: all 0.3s ease;
   <span>Online: <span id="onlineCount">1</span> Pengguna</span>
 </div>
 
-<!-- SIDEBAR NAVIGASI -->
+<!-- SIDEBAR DENGAN DAFTAR MENU REVISI TERBARU -->
 <div id="sidebar" class="sidebar">
 <div class="profile">
 <img src="profile.jpg" alt="Profile">
-<h2>GMAIL STORE CY-TEAM</h2>
+<h2>CY TEAM</h2>
 <p>Member Dashboard</p>
 </div>
 
@@ -192,36 +198,27 @@ backdrop-filter: blur(10px);z-index: 9999;transition: all 0.3s ease;
 
 <div class="container">
 <div class="hero">
-<h1>💬 GLOBAL CHAT ROOM</h1>
-<p>Komunitas mengobrol real-time member CY-TEAM</p>
+  <h1>💬 GLOBAL CHAT ROOM</h1>
+  <p>Komunitas mengobrol real-time member CY TEAM</p>
 </div>
 
 <!-- CONTAINER UTAMA PANEL CHAT -->
 <div class="chat-container">
-  <!-- Area Isi Pesan-pesan -->
   <div class="chat-messages" id="chatMessages">
-    <!-- Contoh Pesan Masuk -->
     <div class="message received">
       <div class="meta">Admin CY-TEAM • 12.00</div>
       <div class="bubble">Selamat datang di room chat! Silakan berdiskusi di sini.</div>
     </div>
-    <!-- Contoh Pesan Keluar -->
     <div class="message sent">
       <div class="meta">Anda • 12.01</div>
       <div class="bubble">Halo admin, siap pantau! 🚀</div>
     </div>
   </div>
 
-  <!-- Kolam Pengetikan & Pengiriman -->
   <div class="chat-input-area">
-    <!-- Input File Tersembunyi -->
     <input type="file" id="fileInput" accept="image/*, application/pdf, .doc, .docx, .txt" onchange="handleFileSelect(this)">
-    <!-- Tombol Tambah Berkas (+) -->
-    <button class="btn-attach" onclick="triggerFileInput()" title="Kirim Gambar / File">+</button>
-    
-    <!-- Kotak Teks -->
+    <button class="btn-attach" onclick="triggerFileInput()">+</button>
     <input type="text" id="messageInput" class="input-box" placeholder="Ketik pesan Anda di sini..." onkeypress="handleKeyPress(event)">
-    <!-- Tombol Kirim -->
     <button class="btn-send" onclick="sendMessage()">Kirim</button>
   </div>
 </div>
@@ -229,51 +226,60 @@ backdrop-filter: blur(10px);z-index: 9999;transition: all 0.3s ease;
 
 <div class="footer">CY TEAM SYSTEM © 2026</div>
 
-<!-- SCRIPT SYSTEM INTERAKSI CHAT -->
+<!-- SYSTEM SCRIPT JS -->
 <script>
+// Fungsi toggle buka tutup menu sidebar yang sudah fix terkoneksi id & class
 function toggleMenu(){
-document.getElementById('sidebar').classList.toggle('active');
-document.getElementById('overlay').classList.toggle('active');
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('overlay').classList.toggle('active');
 }
 
-// Simulasi Counter Pengunjung Online Acak (Hanya Visual Statis Depan)
 function simulateOnlineUsers() {
-  const baseCount = Math.floor(Math.random() * 5) + 8; // Menghasilkan angka acak antara 8-12
+  const baseCount = Math.floor(Math.random() * 4) + 6; 
   document.getElementById('onlineCount').innerText = baseCount;
 }
-setInterval(simulateOnlineUsers, 8000); 
+setInterval(simulateOnlineUsers, 9000);
 simulateOnlineUsers();
 
-// Fungsi Pemicu Input Tombol File (+)
 function triggerFileInput() {
   document.getElementById('fileInput').click();
 }
 
-// Fungsi Mengirim Pesan Teks Sementara (Sisi Klien)
 function sendMessage() {
   const input = document.getElementById('messageInput');
   const text = input.value.trim();
   if (text === "") return;
-
   appendMessage("Anda", text, "sent");
   input.value = "";
 }
 
-// Deteksi Tombol Enter saat mengetik
 function handleKeyPress(event) {
   if (event.key === "Enter") {
     sendMessage();
   }
 }
 
-// Fungsi Mengirim Lampiran Gambar / File Sementara
 function handleFileSelect(input) {
   const file = input.files[0];
   if (!file) return;
-
   const time = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
 
   if (file.type.startsWith('image/')) {
     const reader = new FileReader();
     reader.onload = function(e) {
-  
+      const messagesContainer = document.getElementById('chatMessages');
+      messagesContainer.innerHTML += `
+        <div class="message sent">
+          <div class="meta">Anda • ${time}</div>
+          <div class="bubble">
+            <img src="${e.target.result}" class="chat-img-preview"><br>
+            <span style="font-size:12px; opacity:0.8;">🖼️ ${file.name}</span>
+          </div>
+        </div>
+      `;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    appendMessage("Anda", `📁 Dokumen Terlampir: <strong>${file.name}</strong>`, "sent");
+  }
