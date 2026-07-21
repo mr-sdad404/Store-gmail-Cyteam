@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CY TEAM - PENGATURAN</title>
+<style>
+/* VARIABEL WARNA UNTUK TEMA */
+:root {
+  --bg-color: linear-gradient(rgba(5,10,30,.75),rgba(5,10,30,.75)),url('background.jpg');
+  --sidebar-bg: rgba(10,15,35,.96);
+  --glass-bg: rgba(255,255,255,.08);
+  --text-color: #fff;
+  --border-color: rgba(255,255,255,.15);
+  --glow-color: #00ffff;
+}
+
+/* KELAS TEMA TERANG */
+body.light-theme {
+  --bg-color: linear-gradient(rgba(240,244,248,.9),rgba(240,244,248,.9)),url('background.jpg');
+  --sidebar-bg: rgba(255,255,255,.96);
+  --glass-bg: rgba(0,0,0,.05);
+  --text-color: #1a202c;
+  --border-color: rgba(0,0,0,.1);
+  --glow-color: #6a00ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+background: var(--bg-color);
+background-size:cover;background-position:center;background-attachment:fixed;
+color: var(--text-color);min-height:100vh;
+transition: background 0.3s ease, color 0.3s ease;
+}
+.menu-btn{
+position:fixed;top:20px;left:20px;width:55px;height:55px;border:none;
+border-radius:16px;cursor:pointer;font-size:24px;font-weight:bold;
+background:linear-gradient(135deg,#00ffff,#6a00ff);color:#fff;z-index:1001
+}
+.sidebar{
+position:fixed;top:0;left:-320px;width:300px;height:100%;
+padding:20px;transition:.35s;overflow-y:auto;z-index:1002;
+background: var(--sidebar-bg);backdrop-filter:blur(20px)
+}
+.sidebar.active{left:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:1000}
+.overlay.active{display:block}
+.profile{text-align:center;margin-bottom:20px}
+.profile img{width:90px;height:90px;border-radius:50%;border:3px solid #00ffff}
+.profile h2{margin-top:10px;color:#00ffff}
+.balance{
+padding:18px;border-radius:20px;margin-bottom:20px;
+background:linear-gradient(135deg,#00ffff,#6a00ff,#00a2ff);
+background-size:300% 300%;animation:holo 6s infinite;
+color: #fff !important;
+}
+@keyframes holo{
+0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
+}
+.sidebar a{
+display:block;text-decoration:none;color: var(--text-color);padding:14px;
+margin-top:10px;border-radius:14px;background:rgba(255,255,255,.06);
+border: 1px solid var(--border-color);
+}
+.container{max-width:1100px;margin:auto;padding:90px 20px 30px}
+.hero,.glass{text-align:center}
+.hero h1{color:#00ffff}
+
+.glass{
+background: var(--glass-bg);backdrop-filter:blur(15px);
+border:1px solid var(--border-color);border-radius:20px;padding:20px;
+transition: all 0.3s ease;
+}
+
+/* GAYA KHUSUS FORM PENGATURAN TEMA */
+.glass-form {
+text-align: left;
+max-width: 600px;
+margin: 20px auto 30px;
+}
+.form-group {
+margin-bottom: 20px;
+}
+.form-group label {
+display: block;
+margin-bottom: 8px;
+color: var(--glow-color);
+font-size: 14px;
+font-weight: bold;
+}
+.form-group select {
+width: 100%;
+padding: 12px;
+border-radius: 12px;
+border: 1px solid var(--border-color);
+background: rgba(255,255,255,.05);
+color: var(--text-color);
+font-size: 15px;
+outline: none;
+cursor: pointer;
+}
+.form-group select option {
+background: #0a0f23;
+color: #fff;
+}
+
+/* GAYA KOLAM BROADCAST KEREN */
+.broadcast-section {
+margin-top: 30px;
+}
+.broadcast-title {
+font-size: 20px;
+color: #00ffff;
+margin-bottom: 15px;
+text-align: left;
+font-weight: bold;
+border-left: 4px solid #00ffff;
+padding-left: 10px;
+}
+.broadcast-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+.bc-card {
+background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+border: 1px solid var(--border-color);
+border-radius: 18px;
+padding: 22px;
+text-align: left;
+position: relative;
+overflow: hidden;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.bc-card::before {
+content: '';
+position: absolute;
+top: 0; left: 0; width: 100%; height: 4px;
+background: linear-gradient(90deg, #00ffff, #6a00ff);
+}
+.bc-badge {
+display: inline-block;
+padding: 5px 12px;
+border-radius: 8px;
+font-size: 11px;
+font-weight: bold;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin-bottom: 15px;
+color: #fff;
+}
+.badge-rules { background: #ff3b30; box-shadow: 0 0 10px rgba(255,59,48,0.4); }
+.badge-setor { background: #34c759; box-shadow: 0 0 10px rgba(52,199,89,0.4); }
+
+.bc-text {
+font-size: 16px;
+font-weight: 600;
+line-height: 1.5;
+color: var(--text-color);
+background: rgba(255,255,255,0.03);
+padding: 15px;
+border-radius: 12px;
+border: 1px dashed var(--border-color);
+}
+
+.footer{text-align:center;padding:25px;opacity:.7}
+.wa-floating-btn {
+position: fixed;bottom: 30px;right: 30px;
+background: rgba(10, 15, 35, 0.8);color: #00ffff;
+border: 1px solid #00ffff;padding: 12px 20px;border-radius: 50px;
+display: flex;align-items: center;gap: 10px;text-decoration: none;
+font-size: 14px;font-weight: bold;box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+backdrop-filter: blur(10px);z-index: 9999;transition: all 0.3s ease;
+}
+.wa-floating-btn:hover {
+transform: translateY(-5px);background: #00ffff;color: #0a0f23;box-shadow: 0 0 25px #00ffff;
+}
+.wa-floating-btn:hover svg { fill: #0a0f23 !important; }
+</style>
+</head>
+<body>
+
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+<!-- SIDEBAR -->
+<div id="sidebar" class="sidebar">
+<div class="profile">
+<img src="profile.jpg" alt="Profile">
+<h2>CY TEAM</h2>
+<p>Member Dashboard</p>
+</div>
+
+<div class="balance">
+<div>Saldo Tersedia</div>
+<h2>Rp 0</h2>
+</div>
+
+<a href="index.html">🏠 Home</a>
+<a href="admin.html">👤 Admin</a>
+<a href="#">💰 Saldo</a>
+<a href="cekgmail.html">📧 Cek Gmail</a>
+<a href="#">📜 Riwayat</a>
+<a href="pengaturan.html">⚙️ Pengaturan</a>
+<a href="#">🚪 Logout</a>
+</div>
+
+<div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+<div class="container">
+<div class="hero">
+<h1>⚙️ PENGATURAN SYSTEM</h1>
+<p>Kustomisasi interface dan informasi broadcast CY TEAM</p>
+</div>
+
+<!-- FORM PENGATURAN TEMA -->
+<div class="glass glass-form">
+<div class="form-group">
+<label for="themeSelect">🎨 Pilih Tema Website</label>
+<select id="themeSelect" onchange="changeTheme(this.value)">
+<option value="dark">Tema Gelap (Futuristik Cyber)</option>
+<option value="light">Tema Terang (Bersih & Elegan)</option>
+</select>
+</div>
+</div>
+
+<!-- KOLAM BROADCAST KEREN -->
+<div class="broadcast-section">
+<div class="broadcast-title">📢 Informasi & Broadcast Terbaru</div>
+<div class="broadcast-grid">
+  
+  <!-- Kolam 1: Rules -->
+  <div class="bc-card">
+    <span class="bc-badge badge-rules">Peraturan</span>
+    <div class="bc-text">
+      ✅ buat rules di sini
+    </div>
+  </div>
+
+  <!-- Kolam 2: Setor Link -->
+  <div class="bc-card">
+    <span class="bc-badge badge-setor">Setoran</span>
+    <div class="bc-text">
+      ⚡ setor via link web
+    </div>
+  </div>
+
+</div>
+</div>
+
+</div>
+
+<div class="footer">CY TEAM SYSTEM © 2026</div>
+
+<script>
+// Fungsi Buka/Tutup Sidebar
+function toggleMenu(){
+document.getElementById('sidebar').classList.toggle('active');
+document.getElementById('overlay').classList.toggle('active');
+}
+
+/* SCRIPT SYSTEM TEMA GLOBAL */
+function changeTheme(theme) {
+  if (theme === 'light') {
+    document.body.classList.add('light-theme');
+    localStorage.setItem('cy-theme', 'light');
+  } else {
+    document.body.classList.remove('light-theme');
+    localStorage.setItem('cy-theme', 'dark');
+  }
+}
+
+// Cek tema saat halaman dimuat
+(function() {
+  const savedTheme = localStorage.getItem('cy-theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+    document.getElementById('themeSelect').value = 'light';
+  } else {
+    document.body.classList.remove('light-theme');
+    document.getElementById('themeSelect').value = 'dark';
+  }
+})();
+</script>
+
+<!-- Tombol WhatsApp Melayang -->
+<a href="https://wa.me" class="wa-floating-btn" target="_blank" rel="noopener noreferrer">
+<svg viewBox="0 0 32 32" style="width:24px; height:24px; fill:#00ffff;">
+<path d="M16 2a14 14 0 0 0-12.1 21L2 29l6.3-1.6A14 14 0 1 0 16 2zm7.5 20c-.3.9-1.7 1.7-2.4 1.8-.7.1-1.5.2-4.5-.9-3.7-1.5-6-5.3-6.2-5.5-.2-.2-1.7-2.3-1.7-4.4 0-2.1 1.1-3.1 1.5-3.5.3-.3.8-.5 1.2-.5.1 0 .3 0 .4.1.4 0 .6.1.8.6.3.6.9 2.2 1 2.4.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.6.7c-.2.2-.4.4-.2.8.3.5 1.3 2.1 2.8 3.5 1.9 1.7 3.5 2.2 4 2.4.5.2.8.2 1.1-.2.3-.4 1.3-1.5 1.6-2 .3-.5.7-.4 1.2-.2.5.2 3.1 1.5 3.6 1.8.5.2.9.4 1 .6.2.3.2 1.7-.2 2.6z"/>
+</svg>
+<span>Chat Admin</span>
+</a>
+
+</body>
+</html>
+
