@@ -32,23 +32,22 @@ background: var(--bg-color);
 background-size:cover;background-position:center;background-attachment:fixed;
 color: var(--text-color);min-height:100vh;
 transition: background 0.3s ease, color 0.3s ease;
-overflow: hidden; /* Kunci layar HP agar tidak scroll naik turun */
+overflow: hidden;
 }
 
-/* ─── LAYER PALING ATAS (ANTI-TERHALANG) ─── */
+/* ─── LAYER UTAMA TOMBOL (ANTI GAGAL) ─── */
 .menu-btn {
 position:fixed;top:20px;left:20px;width:55px;height:55px;border:none;
 border-radius:16px;cursor:pointer;font-size:24px;font-weight:bold;
 background:linear-gradient(135deg,#00ffff,#6a00ff);color:#fff;
-z-index:999999 !important; /* Nilai z-index ekstrem agar mutlak paling depan */
-pointer-events: auto !important;
+z-index:99999 !important;
 }
 .online-counter {
 position: fixed;top: 25px;left: 90px;
 display: flex;align-items: center;gap: 8px;
 background: var(--glass-bg);border: 1px solid var(--border-color);
 padding: 10px 16px;border-radius: 30px;backdrop-filter: blur(10px);
-z-index: 999998 !important;font-size: 13px;font-weight: bold;
+z-index: 99998;font-size: 13px;font-weight: bold;
 }
 .online-dot {
 width: 10px;height: 10px;background-color: #34c759;
@@ -61,14 +60,14 @@ animation: pulse 1.5s infinite;
 100% { transform: scale(0.9); opacity: 0.6; }
 }
 
-/* ─── SIDEBAR & OVERLAY SYSTEM ─── */
+/* ─── SIDEBAR & OVERLAY ─── */
 .sidebar{
 position:fixed;top:0;left:-320px;width:300px;height:100%;
-padding:20px;transition:.35s;overflow-y:auto;z-index:9999999 !important;
+padding:20px;transition:.35s;overflow-y:auto;z-index:100000 !important;
 background: var(--sidebar-bg);backdrop-filter:blur(20px)
 }
 .sidebar.active{left:0}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:9999995 !important}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:99997}
 .overlay.active{display:block}
 
 .profile{text-align:center;margin-bottom:20px}
@@ -89,7 +88,7 @@ margin-top:10px;border-radius:14px;background:rgba(255,255,255,.06);
 border: 1px solid var(--border-color);
 }
 
-/* ─── BODY CONTAINER (DIBUAT PAS DI HP) ─── */
+/* ─── AREA PANEL WRAPPER ─── */
 .container{
 max-width:900px;margin:auto;
 padding:95px 10px 10px; 
@@ -97,30 +96,26 @@ height: 100vh;
 display: flex;
 flex-direction: column;
 position: relative;
-z-index: 100;
 }
 .hero{text-align:center;margin-bottom:10px;flex-shrink: 0;}
 .hero h1{font-size: 20px; color:#00ffff}
 .hero p{font-size: 12px; opacity:0.8}
 
-/* BOX AREA CHAT */
 .chat-container {
 background: var(--glass-bg);backdrop-filter:blur(15px);
 border:1px solid var(--border-color);border-radius:24px;
 display: flex;flex-direction: column;
 flex: 1; 
-margin-bottom: 25px; 
+margin-bottom: 20px; 
 overflow: hidden;
 box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-position: relative;
-z-index: 150;
 }
 .chat-messages {
 flex: 1;padding: 15px;overflow-y: auto;
 background: var(--chat-box-bg);display: flex;flex-direction: column;gap: 15px;
 }
 
-/* BALON CHAT */
+/* ─── BALON CHAT ─── */
 .message { max-width: 85%; display: flex; flex-direction: column; }
 .message .meta { font-size: 11px; opacity: 0.6; margin-bottom: 4px; padding: 0 5px; }
 .message .bubble { 
@@ -135,31 +130,26 @@ word-wrap: break-word; word-break: break-word; overflow-wrap: break-word;
 
 .chat-img-preview { max-width: 100%; border-radius: 10px; margin-top: 5px; max-height: 180px; object-fit: cover; }
 
-/* ─── AREA INPUT BAWAH (DIPAKSA KE LAPISAN DEPAN) ─── */
+/* ─── AREA BARIS INPUT BAWAH ─── */
 .chat-input-area {
 padding: 12px; background: rgba(10, 15, 35, 0.95); border-top: 1px solid var(--border-color);
 display: flex; align-items: center; gap: 8px; flex-shrink: 0;
-position: relative; 
-z-index: 9999 !important; /* Berada di atas kontainer chat agar ketukan jari tidak terblokir */
 }
 .btn-attach {
 width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--border-color);
 background: rgba(255,255,255,0.1); color: var(--glow-color); border-radius: 50%;
 font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-outline: none; position: relative; z-index: 10000 !important;
-pointer-events: auto !important;
+outline: none;
 }
 .input-box {
 flex: 1; height: 44px; min-width: 0; background: rgba(255,255,255,0.05);
 border: 1px solid var(--border-color); border-radius: 22px; padding: 0 15px;
-color: var(--text-color); font-size: 14px; outline: none; position: relative; z-index: 10000 !important;
-pointer-events: auto !important;
+color: var(--text-color); font-size: 14px; outline: none;
 }
 .btn-send {
 height: 44px; padding: 0 18px; flex-shrink: 0; border: none;
 background: linear-gradient(135deg, #00ffff, #6a00ff); color: #fff;
-border-radius: 22px; font-weight: bold; cursor: pointer; position: relative; z-index: 10000 !important;
-pointer-events: auto !important;
+border-radius: 22px; font-weight: bold; cursor: pointer;
 }
 
 #fileInput { display: none !important; }
@@ -168,8 +158,8 @@ pointer-events: auto !important;
 </head>
 <body>
 
-<!-- TOMBOL UTAMA -->
-<button type="button" class="menu-btn" onclick="toggleMenu()">☰</button>
+<!-- TOMBOL SIDEBAR & INDIKATOR PENGUNJUNG -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
 <div class="online-counter">
   <div class="online-dot"></div>
   <span>Online: <span id="onlineCount">1</span> Pengguna</span>
@@ -218,7 +208,7 @@ pointer-events: auto !important;
     </div>
   </div>
 
-  <!-- AREA INPUT (ANTI BLOCK) -->
+  <!-- AREA INPUT FORM -->
   <div class="chat-input-area">
     <input type="file" id="fileInput" accept="image/*, application/pdf, .doc, .docx, .txt" onchange="handleFileSelect(this)">
     <button type="button" class="btn-attach" onclick="triggerFileInput()">+</button>
@@ -229,43 +219,29 @@ pointer-events: auto !important;
 <div class="footer">CY TEAM SYSTEM © 2026</div>
 </div>
 
-<!-- CODE LOGIC JAVASCRIPT (DIAMANKAN) -->
+<!-- KODE LOGIC JAVASCRIPT CLEAN UP -->
 <script>
-// Fungsi Buka Tutup Menu Sidebar
 function toggleMenu(){
-  var sidebar = document.getElementById('sidebar');
-  var overlay = document.getElementById('overlay');
-  if(sidebar && overlay) {
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-  }
+  document.getElementById('sidebar').classList.toggle('active');
+  document.getElementById('overlay').classList.toggle('active');
 }
 
-// Simulasi Counter Online
 function simulateOnlineUsers() {
   const baseCount = Math.floor(Math.random() * 4) + 5; 
-  var counterEl = document.getElementById('onlineCount');
-  if(counterEl) counterEl.innerText = baseCount;
+  const el = document.getElementById('onlineCount');
+  if(el) el.innerText = baseCount;
 }
-setInterval(simulateOnlineUsers, 10000);
+setInterval(simulateOnlineUsers, 9000);
 simulateOnlineUsers();
 
-// Pemicu Klik Tombol File (+)
 function triggerFileInput() {
-  var fileInputBtn = document.getElementById('fileInput');
-  if(fileInputBtn) {
-    fileInputBtn.click();
-  }
+  document.getElementById('fileInput').click();
 }
 
-// Fungsi Kirim Pesan Teks
 function sendMessage() {
-  var input = document.getElementById('messageInput');
-  if(!input) return;
-  
-  var text = input.value.trim();
+  const input = document.getElementById('messageInput');
+  const text = input.value.trim();
   if (text === "") return;
-  
   appendMessage("Anda", text, "sent");
   input.value = "";
 }
@@ -276,13 +252,38 @@ function handleKeyPress(event) {
   }
 }
 
-// Fungsi Olah File Gambar/Dokumen Lokal
+/* FIX UTAMA: Pembacaan array indeks [0] pada input file */
 function handleFileSelect(input) {
   if (!input || !input.files || input.files.length === 0) return;
-  var file = input.files[0];
-  var time = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
+  const file = input.files[0]; // Memperbaiki penunjukan berkas pertama
+  const time = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
 
   if (file.type.startsWith('image/')) {
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function(e) {
-      var messagesContainer = document.getElementById('chatMessages');
+      const messagesContainer = document.getElementById('chatMessages');
+      messagesContainer.innerHTML += `
+        <div class="message sent">
+          <div class="meta">Anda • ${time}</div>
+          <div class="bubble">
+            <img src="${e.target.result}" class="chat-img-preview"><br>
+            <span style="font-size:12px; opacity:0.8;">🖼️ ${file.name}</span>
+          </div>
+        </div>
+      `;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    appendMessage("Anda", `📁 Dokumen Terlampir: <strong>${file.name}</strong>`, "sent");
+  }
+  input.value = ""; 
+}
+
+function appendMessage(sender, text, type) {
+  const messagesContainer = document.getElementById('chatMessages');
+  const time = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
+  
+  messagesContainer.innerHTML += `
+    <div class="message ${type}">
+      <div class="meta">${sender} • ${time}</div>
