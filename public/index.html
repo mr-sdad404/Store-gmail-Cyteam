@@ -82,26 +82,7 @@ border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:20px
 .wa-floating-btn:hover svg {
   fill: #0a0f23 !important;
 }
-
-  /* Paste kode ini di dalam tag <style> index.html */
-body.light-theme {
-  --bg-color: linear-gradient(rgba(240,244,248,.9),rgba(240,244,248,.9)),url('background.jpg');
-  --sidebar-bg: rgba(255,255,255,.96);
-  --glass-bg: rgba(0,0,0,.05);
-  --text-color: #1a202c;
-  --border-color: rgba(0,0,0,.1);
-  --glow-color: #6a00ff;
-}
-body {
-  background: var(--bg-color) !important;
-  color: var(--text-color) !important;
-}
-.sidebar { background: var(--sidebar-bg) !important; }
-.sidebar a { color: var(--text-color) !important; border: 1px solid var(--border-color); }
-.glass { background: var(--glass-bg) !important; border-color: var(--border-color) !important; color: var(--text-color) !important; }
-.hero h1 { color: var(--glow-color) !important; }
-.big { color: var(--glow-color) !important; }
-        
+       
 </style>
 </head>
 <body>
@@ -168,16 +149,6 @@ setInterval(updateClock,1000);updateClock();
   </svg>
   <span>Chat Admin</span>
 </a>
-<script>
-(function() {
-  const savedTheme = localStorage.getItem('cy-theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-theme');
-  } else {
-    document.body.classList.remove('light-theme');
-  }
-})();
-</script>
   
 </body>
 </html>
