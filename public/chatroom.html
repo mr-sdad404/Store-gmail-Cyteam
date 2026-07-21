@@ -219,7 +219,7 @@ border-radius: 22px; font-weight: bold; cursor: pointer;
 <div class="footer">CY TEAM SYSTEM © 2026</div>
 </div>
 
-<!-- KODE LOGIC JAVASCRIPT CLEAN UP -->
+<!-- KODE LOGIC JAVASCRIPT FIXED -->
 <script>
 function toggleMenu(){
   document.getElementById('sidebar').classList.toggle('active');
@@ -252,10 +252,10 @@ function handleKeyPress(event) {
   }
 }
 
-/* FIX UTAMA: Pembacaan array indeks [0] pada input file */
+/* FIX UTAMA: Menggunakan objek file tunggal indeks [0] */
 function handleFileSelect(input) {
   if (!input || !input.files || input.files.length === 0) return;
-  const file = input.files[0]; // Memperbaiki penunjukan berkas pertama
+  const file = input.files[0]; // Memperbaiki penunjukan berkas pertama secara spesifik
   const time = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
 
   if (file.type.startsWith('image/')) {
@@ -286,4 +286,4 @@ function appendMessage(sender, text, type) {
   
   messagesContainer.innerHTML += `
     <div class="message ${type}">
-      <div class="meta">${sender} • ${time}</div>
+      
